@@ -1,0 +1,54 @@
+platform :ios, '15.0'   # ← 최소 iOS 버전
+
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. Run `flutter pub get` first."
+  end
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    m = line.match(/FLUTTER_ROOT\=(.*)/)
+    return m[1].strip if m
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}."
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+# 안전한 절대경로로 변환 (prefix 충돌 방지)
+ios_dir = File.expand_path(__dir__)
+
+target 'Runner' do
+  use_frameworks!
+  # use_modular_headers!
+
+  flutter_install_all_ios_pods ios_dir
+
+  target 'RunnerTests' do
+    inherit! :search_paths
+    platform :ios, '15.0'
+  end
+end
+
+post_install do |installer|
+  # 전체 빌드설정 강제
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+  end
+  # 각 Pod 타깃 빌드설정 + Flutter 추가설정
+  installer.pods_project.targets.each do |t|
+    flutter_additional_ios_build_settings(t)
+    t.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+    end
+  end
+end

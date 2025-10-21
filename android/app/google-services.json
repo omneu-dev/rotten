@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "142841763058",
+    "project_id": "rotten-c2542",
+    "storage_bucket": "rotten-c2542.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142841763058:android:a52bc2432ec7fcc2e62c6b",
+        "android_client_info": {
+          "package_name": "com.example.rotten"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLLQuemLEJ1m9gDhH4hNpUpnnH3vKe9CI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

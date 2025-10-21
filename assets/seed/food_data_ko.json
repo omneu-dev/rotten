@@ -1,0 +1,2118 @@
+[
+  {
+    "id": "avocado",
+    "name": "아보카도",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Avocado.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 5,
+      "냉장|통째|true": 7,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 120,
+      "냉동|손질|true": 180,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "bacon",
+    "name": "베이컨",
+    "category": "육류·생선",
+    "emojiPath": "assets/images/food_images/Bacon.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 120,
+      "냉동|통째|true": 210,
+      "냉동|손질|false": 90,
+      "냉동|손질|true": 150,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "bagel",
+    "name": "베이글",
+    "category": "베이커리",
+    "emojiPath": "assets/images/food_images/Bagel.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 5,
+      "냉장|통째|true": 7,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "baguette_bread",
+    "name": "바게트",
+    "category": "베이커리",
+    "emojiPath": "assets/images/food_images/Baguette_Bread.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "banana",
+    "name": "바나나",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Banana.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "beer_mug",
+    "name": "맥주",
+    "category": "커피·술·음료",
+    "emojiPath": "assets/images/food_images/Beer_Mug.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 90,
+      "냉장|통째|true": 92,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "bell_pepper",
+    "name": "피망",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Bell_Pepper.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 120,
+      "냉동|손질|true": 180,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "bento_box",
+    "name": "도시락",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Bento_Box.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 20,
+      "냉동|손질|true": 80,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "beverage_box",
+    "name": "음료수",
+    "category": "커피·술·음료",
+    "emojiPath": "assets/images/food_images/Beverage_Box.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "birthday_cake",
+    "name": "홀케이크",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Birthday_Cake.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "blueberries",
+    "name": "블루베리",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Blueberries.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 10,
+      "냉장|통째|true": 12,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 240,
+      "냉동|손질|true": 300,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "bread",
+    "name": "식빵",
+    "category": "베이커리",
+    "emojiPath": "assets/images/food_images/Bread.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "broccoli",
+    "name": "브로콜리",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Broccoli.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 240,
+      "냉동|손질|true": 300,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "burrito",
+    "name": "부리또",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Burrito.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "butter",
+    "name": "버터",
+    "category": "유제품",
+    "emojiPath": "assets/images/food_images/Butter.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 14,
+      "냉장|손질|true": 15,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "candy",
+    "name": "사탕",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Candy.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 365,
+      "냉장|통째|true": 367,
+      "냉장|손질|false": 180,
+      "냉장|손질|true": 181,
+      "냉장|조리됨|false": 180,
+      "냉장|조리됨|true": 181,
+      "냉동|통째|false": 730,
+      "냉동|통째|true": 820,
+      "냉동|손질|false": 365,
+      "냉동|손질|true": 425,
+      "냉동|조리됨|false": 365,
+      "냉동|조리됨|true": 490
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "canned_food",
+    "name": "통조림",
+    "category": "기타",
+    "emojiPath": "assets/images/food_images/Canned_Food.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 730,
+      "냉장|통째|true": 732,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 730,
+      "냉동|통째|true": 820,
+      "냉동|손질|false": 90,
+      "냉동|손질|true": 150,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "carrot",
+    "name": "당근",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Carrot.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 21,
+      "냉장|통째|true": 23,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cheese_wedge",
+    "name": "치즈",
+    "category": "유제품",
+    "emojiPath": "assets/images/food_images/Cheese_Wedge.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 14,
+      "냉장|손질|true": 15,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 120,
+      "냉동|손질|true": 180,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cherries",
+    "name": "체리",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Cherries.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 240,
+      "냉동|손질|true": 300,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "chestnut",
+    "name": "밤",
+    "category": "건과류·쌀",
+    "emojiPath": "assets/images/food_images/Chestnut.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "chocolate_bar",
+    "name": "초콜릿",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Chocolate_Bar.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 365,
+      "냉장|통째|true": 367,
+      "냉장|손질|false": 180,
+      "냉장|손질|true": 181,
+      "냉장|조리됨|false": 180,
+      "냉장|조리됨|true": 181,
+      "냉동|통째|false": 730,
+      "냉동|통째|true": 820,
+      "냉동|손질|false": 365,
+      "냉동|손질|true": 425,
+      "냉동|조리됨|false": 365,
+      "냉동|조리됨|true": 490
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cocktail_glass",
+    "name": "칵테일",
+    "category": "커피·술·음료",
+    "emojiPath": "assets/images/food_images/Cocktail_Glass.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "coconut",
+    "name": "코코넛",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Coconut.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 120,
+      "냉동|손질|true": 180,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cooked_rice",
+    "name": "밥",
+    "category": "견과류·쌀",
+    "emojiPath": "assets/images/food_images/Cooked_Rice.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cookie",
+    "name": "쿠키",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Cookie.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "croissant",
+    "name": "크루아상",
+    "category": "베이커리",
+    "emojiPath": "assets/images/food_images/Croissant.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cucumber",
+    "name": "오이",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Cucumber.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 10,
+      "냉장|통째|true": 12,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cupcake",
+    "name": "컵케이크",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Cupcake.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 5,
+      "냉장|통째|true": 7,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "curry_rice",
+    "name": "카레라이스",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Curry_Rice.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "custard",
+    "name": "푸딩",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Custard.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "cut_of_meat",
+    "name": "고기",
+    "category": "육류·생선",
+    "emojiPath": "assets/images/food_images/Cut_Of_Meat.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 120,
+      "냉동|손질|true": 180,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "doughnut",
+    "name": "도넛",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Doughnut.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "dumpling",
+    "name": "만두",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Dumpling.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "ear_of_corn",
+    "name": "옥수수",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Ear_Of_Corn.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "egg",
+    "name": "달걀",
+    "category": "계란·두부",
+    "emojiPath": "assets/images/food_images/Egg.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "tofu",
+    "name": "두부",
+    "category": "계란·두부",
+    "emojiPath": "assets/images/food_images/Bowl_With_Spoon.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 5,
+      "냉장|통째|true": 7,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 5,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 5,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "eggplant",
+    "name": "가지",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Eggplant.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "falafel",
+    "name": "팰라펠",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Falafel.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "flatbread",
+    "name": "플랫브레드",
+    "category": "베이커리",
+    "emojiPath": "assets/images/food_images/Flatbread.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "french_fries",
+    "name": "감자튀김",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/French_Fries.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "fried_shrimp",
+    "name": "새우튀김",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Fried_Shrimp.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 20,
+      "냉동|손질|true": 80,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "garlic",
+    "name": "마늘",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Garlic.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 90,
+      "냉장|통째|true": 92,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "glass_of_milk",
+    "name": "우유",
+    "category": "유제품",
+    "emojiPath": "assets/images/food_images/Glass_Of_Milk.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "grapes",
+    "name": "포도",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Grapes.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 240,
+      "냉동|손질|true": 300,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "green_apple",
+    "name": "청사과",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Green_Apple.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "green_salad",
+    "name": "샐러드",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Green_Salad.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "hamburger",
+    "name": "햄버거",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Hamburger.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 20,
+      "냉동|손질|true": 80,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "honey_pot",
+    "name": "꿀",
+    "category": "기타",
+    "emojiPath": "assets/images/food_images/Honey_Pot.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 730,
+      "냉장|통째|true": 732,
+      "냉장|손질|false": 365,
+      "냉장|손질|true": 366,
+      "냉장|조리됨|false": 365,
+      "냉장|조리됨|true": 366,
+      "냉동|통째|false": 730,
+      "냉동|통째|true": 820,
+      "냉동|손질|false": 365,
+      "냉동|손질|true": 425,
+      "냉동|조리됨|false": 365,
+      "냉동|조리됨|true": 490
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "hot_beverage",
+    "name": "커피",
+    "category": "커피·술·음료",
+    "emojiPath": "assets/images/food_images/Hot_Beverage.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 5,
+      "냉장|통째|true": 7,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 5,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 5,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "hot_dog",
+    "name": "핫도그",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Hot_Dog.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "hot_pepper",
+    "name": "고추",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Hot_Pepper.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "ice_cream",
+    "name": "아이스크림",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Ice_Cream.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "ice",
+    "name": "얼음",
+    "category": "기타",
+    "emojiPath": "assets/images/food_images/Ice.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 1,
+      "냉장|통째|true": 3,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 365,
+      "냉동|손질|true": 425,
+      "냉동|조리됨|false": 365,
+      "냉동|조리됨|true": 490
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "kiwi_fruit",
+    "name": "키위",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Kiwi_Fruit.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "leafy_green",
+    "name": "채소",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Leafy_Green.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "lemon",
+    "name": "레몬",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Lemon.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 21,
+      "냉장|통째|true": 23,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "mango",
+    "name": "망고",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Mango.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "meat_on_bone",
+    "name": "갈비",
+    "category": "육류·생선",
+    "emojiPath": "assets/images/food_images/Meat_On_Bone.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 120,
+      "냉동|손질|true": 180,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "melon",
+    "name": "멜론",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Melon.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "mushroom",
+    "name": "버섯",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Mushroom.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "oden",
+    "name": "오뎅",
+    "category": "육류·생선",
+    "emojiPath": "assets/images/food_images/Oden.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "olive",
+    "name": "올리브",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Olive.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 14,
+      "냉장|손질|true": 15,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "onion",
+    "name": "양파",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Onion.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 60,
+      "냉장|통째|true": 62,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "oyster",
+    "name": "굴",
+    "category": "육류·생선",
+    "emojiPath": "assets/images/food_images/Oyster.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "pancakes",
+    "name": "팬케이크",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Pancakes.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "peach",
+    "name": "복숭아",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Peach.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "peanuts",
+    "name": "땅콩",
+    "category": "건과류·쌀",
+    "emojiPath": "assets/images/food_images/Peanuts.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 90,
+      "냉장|통째|true": 92,
+      "냉장|손질|false": 30,
+      "냉장|손질|true": 31,
+      "냉장|조리됨|false": 30,
+      "냉장|조리됨|true": 31,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "pear",
+    "name": "배",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Pear.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "pie",
+    "name": "파이",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Pie.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 5,
+      "냉장|통째|true": 7,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "pineapple",
+    "name": "파인애플",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Pineapple.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "pizza",
+    "name": "피자",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Pizza.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "popcorn",
+    "name": "팝콘",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Popcorn.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "potato",
+    "name": "감자",
+    "category": "견과류·쌀",
+    "emojiPath": "assets/images/food_images/Potato.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "poultry_leg",
+    "name": "치킨",
+    "category": "육류·생선",
+    "emojiPath": "assets/images/food_images/Poultry_Leg.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 120,
+      "냉동|통째|true": 210,
+      "냉동|손질|false": 90,
+      "냉동|손질|true": 150,
+      "냉동|조리됨|false": 120,
+      "냉동|조리됨|true": 245
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "pretzel",
+    "name": "프레첼",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Pretzel.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 90,
+      "냉동|통째|true": 180,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "red_apple",
+    "name": "사과",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Red_Apple.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 30,
+      "냉장|통째|true": 32,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 5,
+      "냉장|조리됨|true": 6,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "roasted_sweet_potato",
+    "name": "군고구마",
+    "category": "견과류·쌀",
+    "emojiPath": "assets/images/food_images/Roasted_Sweet_Potato.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "salt",
+    "name": "소금",
+    "category": "기타",
+    "emojiPath": "assets/images/food_images/Salt.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 730,
+      "냉장|통째|true": 732,
+      "냉장|손질|false": 365,
+      "냉장|손질|true": 366,
+      "냉장|조리됨|false": 365,
+      "냉장|조리됨|true": 366,
+      "냉동|통째|false": 730,
+      "냉동|통째|true": 820,
+      "냉동|손질|false": 365,
+      "냉동|손질|true": 425,
+      "냉동|조리됨|false": 365,
+      "냉동|조리됨|true": 490
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "sandwich",
+    "name": "샌드위치",
+    "category": "베이커리",
+    "emojiPath": "assets/images/food_images/Sandwich.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 20,
+      "냉동|손질|true": 80,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "shaved_ice",
+    "name": "빙수",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Shaved_Ice.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 1,
+      "냉장|통째|true": 3,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "shortcake",
+    "name": "조각케이크",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Shortcake.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "spaghetti",
+    "name": "스파게티",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Spaghetti.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "strawberry",
+    "name": "딸기",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Strawberry.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 180,
+      "냉동|통째|true": 270,
+      "냉동|손질|false": 150,
+      "냉동|손질|true": 210,
+      "냉동|조리됨|false": 240,
+      "냉동|조리됨|true": 365
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "sushi",
+    "name": "초밥",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Sushi.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 1,
+      "냉장|통째|true": 3,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 7,
+      "냉동|통째|true": 97,
+      "냉동|손질|false": 5,
+      "냉동|손질|true": 65,
+      "냉동|조리됨|false": 7,
+      "냉동|조리됨|true": 132
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "taco",
+    "name": "타코",
+    "category": "조리된 음식",
+    "emojiPath": "assets/images/food_images/Taco.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 2,
+      "냉장|통째|true": 4,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 20,
+      "냉동|손질|true": 80,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "tangerine",
+    "name": "귤",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Tangerine.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 14,
+      "냉장|통째|true": 16,
+      "냉장|손질|false": 5,
+      "냉장|손질|true": 6,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "teacup_without_handle",
+    "name": "차",
+    "category": "커피·술·음료",
+    "emojiPath": "assets/images/food_images/Teacup_Without_Handle.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 1,
+      "냉장|통째|true": 3,
+      "냉장|손질|false": 1,
+      "냉장|손질|true": 2,
+      "냉장|조리됨|false": 1,
+      "냉장|조리됨|true": 2,
+      "냉동|통째|false": 30,
+      "냉동|통째|true": 120,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 30,
+      "냉동|조리됨|true": 155
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "tomato",
+    "name": "토마토",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Tomato.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "waffle",
+    "name": "와플",
+    "category": "디저트",
+    "emojiPath": "assets/images/food_images/Waffle.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 3,
+      "냉장|통째|true": 5,
+      "냉장|손질|false": 2,
+      "냉장|손질|true": 3,
+      "냉장|조리됨|false": 2,
+      "냉장|조리됨|true": 3,
+      "냉동|통째|false": 60,
+      "냉동|통째|true": 150,
+      "냉동|손질|false": 30,
+      "냉동|손질|true": 90,
+      "냉동|조리됨|false": 60,
+      "냉동|조리됨|true": 185
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "watermelon",
+    "name": "수박",
+    "category": "채소·과일",
+    "emojiPath": "assets/images/food_images/Watermelon.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 7,
+      "냉장|통째|true": 9,
+      "냉장|손질|false": 3,
+      "냉장|손질|true": 4,
+      "냉장|조리됨|false": 3,
+      "냉장|조리됨|true": 4,
+      "냉동|통째|false": 240,
+      "냉동|통째|true": 330,
+      "냉동|손질|false": 180,
+      "냉동|손질|true": 240,
+      "냉동|조리됨|false": 180,
+      "냉동|조리됨|true": 305
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  },
+  {
+    "id": "wine_glass",
+    "name": "와인",
+    "category": "커피·술·음료",
+    "emojiPath": "assets/images/food_images/Wine_Glass.png",
+    "shelfLifeMap": {
+      "냉장|통째|false": 365,
+      "냉장|통째|true": 367,
+      "냉장|손질|false": 7,
+      "냉장|손질|true": 8,
+      "냉장|조리됨|false": 7,
+      "냉장|조리됨|true": 8,
+      "냉동|통째|false": 365,
+      "냉동|통째|true": 455,
+      "냉동|손질|false": 60,
+      "냉동|손질|true": 120,
+      "냉동|조리됨|false": 90,
+      "냉동|조리됨|true": 215
+    },
+    "updatedAt": {
+      "_serverTimestamp": true
+    }
+  }
+]
