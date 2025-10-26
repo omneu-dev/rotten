@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "🔧 Install Flutter (stable)"
+echo "🧰 Install Flutter (stable)"
 git clone https://github.com/flutter/flutter.git -b stable --depth 1 ~/flutter
 export PATH="$HOME/flutter/bin:$PATH"
 flutter --version
@@ -9,13 +9,8 @@ flutter --version
 echo "📦 pub get"
 flutter pub get
 
-echo "📦 iOS pods"
+echo "📚 CocoaPods install (iOS)"
 cd ios
-pod install --repo-update
+pod repo update
+pod install
 cd ..
-
-echo "🧱 Pre-generate iOS artifacts"
-flutter precache --ios
-flutter build ios --release --no-codesign
-
-echo "✅ post-clone done"
