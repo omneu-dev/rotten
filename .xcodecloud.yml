@@ -1,0 +1,16 @@
+version: 1.0
+
+workflows:
+  default:
+    name: Default
+    actions:
+      - name: Build and Archive
+        action: build
+        configuration:
+          scheme: "Runner"
+          platform: ios
+    scripts:
+      post-clone:
+        - echo "Running post-clone script"
+        - chmod +x ci_scripts/ci_post_clone.sh
+        - ./ci_scripts/ci_post_clone.sh
