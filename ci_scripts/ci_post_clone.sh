@@ -1,23 +1,28 @@
 #!/bin/bash
 set -euo pipefail
+set -x
 
-echo "🔧 Install Flutter (stable)"
+echo "==[post-clone] start=="
+
+# 1) Flutter 설치/경로
 git clone https://github.com/flutter/flutter.git -b stable --depth 1 "$HOME/flutter"
 export PATH="$HOME/flutter/bin:$PATH"
 
 flutter --version
-# iOS 관련 아티팩트 미리 받기
 flutter precache --ios
 
-echo "📦 flutter pub get"
-# 저장소 루트(=pubspec.yaml 있는 곳)에서 실행
+# 2) 의존성
+echo "==[post-clone] flutter pub get=="
 flutter pub get
 
-echo "🛠️ Generate iOS Flutter configs (creates ios/Flutter/Generated.xcconfig)"
-# 서명 없이 구성파일/에페메럴 파일 생성
+# 3) iOS용 플러터 설정/Generated.xcconfig 생성
+echo "==[post-clone] flutter build ios --no-codesign (generate configs)=="
 flutter build ios --release --no-codesign
 
-echo "📚 CocoaPods install"
+# 4) CocoaPods
+echo "==[post-clone] pod install=="
 cd ios
-pod install --repo-update
+pod install
 cd -
+
+echo "==[post-clone] done=="
