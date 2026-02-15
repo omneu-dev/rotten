@@ -11,6 +11,8 @@ class UpdateRequest {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String? url; // Optional external URL for stories
+  final String? comment; // 운영진 답변
+  final DateTime? commentCreatedAt; // 운영진 답변 생성 날짜
 
   UpdateRequest({
     required this.id,
@@ -23,6 +25,8 @@ class UpdateRequest {
     required this.createdAt,
     required this.updatedAt,
     this.url,
+    this.comment,
+    this.commentCreatedAt,
   });
 
   // Firestore에서 데이터를 가져올 때 사용
@@ -32,12 +36,24 @@ class UpdateRequest {
 
       print('문서 데이터: $data');
 
+      // userId 또는 authorID 필드 확인 (구버전 데이터 호환성)
+      final userId = data['userId'] ?? data['authorID'] ?? '';
+      
+      // 디버깅: authorID 필드가 있는 경우 로그
+      if (data['authorID'] != null && data['userId'] == null) {
+        print('[UpdateRequest] authorID 필드 사용: ${doc.id} -> userId: $userId');
+      }
+      
+      // title 또는 body 필드 확인 (구버전 데이터 호환성)
+      final title = data['title'] ?? '';
+      final content = data['content'] ?? data['body'] ?? '';
+      
       return UpdateRequest(
         id: doc.id,
-        userId: data['userId'] ?? '',
+        userId: userId,
         userNickname: data['userNickname'] ?? '익명 사용자',
-        title: data['title'] ?? '',
-        content: data['content'] ?? '',
+        title: title,
+        content: content,
         category: data['category'] ?? '기타',
         status: data['status'] ?? '요청',
         createdAt: data['createdAt'] != null
@@ -49,6 +65,10 @@ class UpdateRequest {
         url: (data['url'] as String?)?.trim().isEmpty == true
             ? null
             : data['url'] as String?,
+        comment: data['comment'] as String?,
+        commentCreatedAt: data['commentCreatedAt'] != null
+            ? (data['commentCreatedAt'] as Timestamp).toDate()
+            : null,
       );
     } catch (e) {
       print('UpdateRequest.fromFirestore 오류: $e');

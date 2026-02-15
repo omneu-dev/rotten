@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -19,9 +20,14 @@ class CustomBottomNavigationBar extends StatelessWidget {
           height: 64,
           child: Row(
             children: [
-              _buildNavItem(index: 0, icon: Icons.kitchen, label: '냉장고'),
-              _buildNavItem(index: 1, icon: Icons.ac_unit, label: '냉동고'),
-              _buildNavItem(index: 2, icon: Icons.forum, label: '소통 창구'),
+              _buildNavItem(
+                index: 0,
+                imagePath: 'assets/images/home.svg',
+                label: '홈',
+              ),
+              _buildNavItem(index: 1, icon: Icons.kitchen, label: '냉장고'),
+              _buildNavItem(index: 2, icon: Icons.ac_unit, label: '냉동고'),
+              _buildNavItem(index: 3, icon: Icons.forum, label: '소통 창구'),
             ],
           ),
         ),
@@ -31,7 +37,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   Widget _buildNavItem({
     required int index,
-    required IconData icon,
+    IconData? icon,
+    String? imagePath,
     required String label,
   }) {
     final isSelected = selectedIndex == index;
@@ -42,7 +49,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Expanded(
       child: Center(
         child: GestureDetector(
-          onTap: () => onTap(index),
+          onTap: () => this.onTap(index),
           child: Container(
             width: 125,
             height: 56,
@@ -53,7 +60,14 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 Container(
                   height: 24,
                   width: 24,
-                  child: Icon(icon, size: 18, color: color),
+                  child: imagePath != null
+                      ? SvgPicture.asset(
+                          imagePath,
+                          width: 18,
+                          height: 18,
+                          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                        )
+                      : Icon(icon!, size: 18, color: color),
                 ),
                 const SizedBox(height: 4),
                 Text(

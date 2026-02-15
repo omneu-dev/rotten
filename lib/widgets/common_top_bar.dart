@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/admin_screen.dart';
+import '../screens/recipe_admin_screen.dart';
 import '../screens/add_food_screen.dart';
+import '../services/user_service.dart';
 
 class AddIconPainter extends CustomPainter {
   @override
@@ -37,6 +39,9 @@ class CommonTopBar extends StatelessWidget {
   final Set<String> selectedCards;
   final VoidCallback onEditToggle;
   final VoidCallback onDeleteSelected;
+  final bool isEmpty; // 빈 상태 여부
+  final String defaultLocation; // '냉장' 또는 '냉동'
+  final VoidCallback? onSortTap; // 정렬 버튼 콜백
 
   const CommonTopBar({
     super.key,
@@ -44,14 +49,18 @@ class CommonTopBar extends StatelessWidget {
     required this.selectedCards,
     required this.onEditToggle,
     required this.onDeleteSelected,
+    this.isEmpty = false,
+    this.defaultLocation = '냉장',
+    this.onSortTap,
   });
+
 
   void _navigateToAddFood(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => const AddFoodScreen(),
+      builder: (context) => AddFoodScreen(defaultLocation: defaultLocation),
     );
   }
 
@@ -81,7 +90,7 @@ class CommonTopBar extends StatelessWidget {
                   children: [
                     // 정리/완료 버튼
                     GestureDetector(
-                      onTap: onEditToggle,
+                      onTap: isEmpty ? null : onEditToggle,
                       child: Text(
                         isEditMode ? '완료' : '정리',
                         style: TextStyle(
@@ -90,7 +99,7 @@ class CommonTopBar extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           height: 22 / 14,
                           letterSpacing: -0.3,
-                          color: Colors.grey[700],
+                          color: isEmpty ? Colors.grey[400] : Colors.grey[700],
                         ),
                       ),
                     ),
@@ -133,31 +142,91 @@ class CommonTopBar extends StatelessWidget {
                         ),
                       ),
                     ] else ...[
-                      // 일반 모드: 관리자 + 추가 버튼
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AdminScreen(),
+                      // 일반 모드: 레시피 관리 + 음식 데이터 관리 + 추가 버튼
+                      // 개발 모드에서만 표시
+                      if (UserService.isDevelopmentMode) ...[
+                        // 레시피 관리 버튼
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const RecipeAdminScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: Colors.purple[600],
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                          );
-                        },
-                        child: Container(
-                          width: 24,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: Colors.green[600],
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Icon(
-                            Icons.admin_panel_settings,
-                            size: 16,
-                            color: Colors.white,
+                            child: const Icon(
+                              Icons.restaurant_menu,
+                              size: 16,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
+                        const SizedBox(width: 12),
+                        // 음식 데이터 관리 버튼
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AdminScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: Colors.green[600],
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Icon(
+                              Icons.admin_panel_settings,
+                              size: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                      ],
+                      // 정렬 버튼
+                      if (onSortTap != null) ...[
+                        Builder(
+                          key: const ValueKey('sort_icon'),
+                          builder: (context) {
+                            return GestureDetector(
+                              onTap: () {
+                                final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+                                if (renderBox != null && onSortTap != null) {
+                                  final position = renderBox.localToGlobal(Offset.zero);
+                                  final size = renderBox.size;
+                                  // 위치 정보를 콜백에 전달
+                                  onSortTap?.call();
+                                } else {
+                                  onSortTap?.call();
+                                }
+                              },
+                              child: SvgPicture.asset(
+                                'assets/images/system-uicons_sort.svg',
+                                width: 24,
+                                height: 24,
+                                colorFilter: const ColorFilter.mode(
+                                  Color(0xFF686C75),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 12),
+                      ],
                       // + 버튼
                       GestureDetector(
                         onTap: () => _navigateToAddFood(context),

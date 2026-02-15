@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../widgets/food_card.dart';
 import '../widgets/common_top_bar.dart';
+import '../widgets/sort_dialog.dart';
 import '../models/user_log.dart';
 import '../providers/food_log_provider.dart';
+import '../services/sort_preference_service.dart';
 import 'food_detail_view_screen.dart';
 
 /*
@@ -24,6 +26,7 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
   bool _isTrashSectionExpanded = true; // 드롭다운 상태 관리
   bool _isEditMode = false; // 편집 모드 상태
   Set<String> _selectedCards = {}; // 선택된 카드들의 ID
+  SortType _sortType = SortType.createdAt; // 정렬 타입
 
   final List<String> _categories = [
     '전체',
@@ -36,7 +39,8 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
     '베이커리',
     '디저트',
     '커피·술·음료',
-    '조리된 음식',
+    '국·반찬·메인요리',
+    '조미료·양념',
     '기타',
   ];
 
@@ -46,6 +50,22 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
     // Provider 초기화
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<FoodLogProvider>(context, listen: false).initialize();
+      _loadSortPreference();
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 화면이 다시 활성화될 때 정렬 타입 다시 로드
+    _loadSortPreference();
+  }
+
+  // 정렬 설정 로드
+  Future<void> _loadSortPreference() async {
+    final sortType = await SortPreferenceService.loadSortType();
+    setState(() {
+      _sortType = sortType;
     });
   }
 
@@ -69,6 +89,7 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
     }
 
     return FoodItem(
+      id: userLog.id, // 고유 ID 추가
       name: userLog.foodName,
       iconPath: correctedIconPath,
       startDate: userLog.startDate,
@@ -100,6 +121,9 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
             selectedCards: _selectedCards,
             onEditToggle: _toggleEditMode,
             onDeleteSelected: _deleteSelectedCards,
+            isEmpty: !hasData,
+            defaultLocation: '냉장',
+            onSortTap: _showSortDialog,
           ),
           const SizedBox(height: 20),
           // 카테고리 탭 (가로 스크롤)
@@ -122,13 +146,16 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
     // 카테고리별로 필터링
     List<UserLog> filteredUserLogs;
     if (_selectedCategoryIndex == 0) {
-      filteredUserLogs = userLogs; // 전체
+      filteredUserLogs = List.from(userLogs); // 전체
     } else {
       final selectedCategory = _categories[_selectedCategoryIndex];
       filteredUserLogs = userLogs
           .where((log) => log.category == selectedCategory)
           .toList();
     }
+
+    // 정렬 적용
+    filteredUserLogs = _sortUserLogs(filteredUserLogs);
 
     // 필터링된 결과가 없으면 빈 화면 표시
     if (filteredUserLogs.isEmpty) {
@@ -187,11 +214,8 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
                       FoodCard(
                         item: item,
                         isEditMode: _isEditMode,
-                        isSelected: _selectedCards.contains(
-                          item.name,
-                        ), // 임시로 name 사용
-                        onSelectionChanged: () =>
-                            _toggleCardSelection(item.name),
+                        isSelected: _selectedCards.contains(item.id),
+                        onSelectionChanged: () => _toggleCardSelection(item.id),
                         onTap: () => _showFoodDetail(item),
                       ),
                       const SizedBox(height: 8),
@@ -228,6 +252,7 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
   // 간단한 카테고리 헤더
   Widget _buildCategoryHeader(String title, int count) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         if (title == '버려야 해요') {
           setState(() {
@@ -311,17 +336,15 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
   Widget _buildCategoryTab(List<UserLog> userLogs) {
     // 각 카테고리별 아이템 개수 계산
     Map<String, int> categoryCounts = {};
-    if (userLogs.isNotEmpty) {
-      for (int i = 0; i < _categories.length; i++) {
-        final category = _categories[i];
-        if (i == 0) {
-          // '전체' 카테고리
-          categoryCounts[category] = userLogs.length;
-        } else {
-          categoryCounts[category] = userLogs
-              .where((userLog) => userLog.category == category)
-              .length;
-        }
+    for (int i = 0; i < _categories.length; i++) {
+      final category = _categories[i];
+      if (i == 0) {
+        // '전체' 카테고리는 항상 활성화 (빈 상태여도)
+        categoryCounts[category] = userLogs.isEmpty ? 1 : userLogs.length;
+      } else {
+        categoryCounts[category] = userLogs
+            .where((userLog) => userLog.category == category)
+            .length;
       }
     }
 
@@ -438,7 +461,7 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
           .collection('foodLog')
           .add({
             'food_name': '딸기',
-            'storedAt': FieldValue.serverTimestamp(),
+            'startDate': FieldValue.serverTimestamp(),
             'storage_type': '냉장',
             'prep_state': '손질',
             'sealed': true,
@@ -486,40 +509,102 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
     // 확인 다이얼로그 표시
     bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          '음식 삭제',
-          style: TextStyle(
-            fontFamily: 'Pretendard',
-            fontWeight: FontWeight.w600,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 제목
+              const Text(
+                '음식 삭제',
+                style: TextStyle(
+                  fontFamily: 'Pretendard',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF363A48),
+                  letterSpacing: -0.4,
+                  height: 1.4,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // 세부 내용
+              Text(
+                '선택한 ${_selectedCards.length}개의 음식을 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.',
+                style: const TextStyle(
+                  fontFamily: 'Pretendard',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF676C74),
+                  letterSpacing: -0.3,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // 버튼 영역
+              Row(
+                children: [
+                  // 취소 버튼
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(false),
+                      child: Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFEAECF0),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            '취소',
+                            style: TextStyle(
+                              fontFamily: 'Pretendard',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF676C74),
+                              letterSpacing: -0.4,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  // 삭제 버튼
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(true),
+                      child: Container(
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD04466),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            '삭제',
+                            style: TextStyle(
+                              fontFamily: 'Pretendard',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              letterSpacing: -0.4,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-        content: Text(
-          '선택한 ${_selectedCards.length}개의 음식을 삭제하시겠습니까?',
-          style: const TextStyle(fontFamily: 'Pretendard'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text(
-              '취소',
-              style: TextStyle(
-                fontFamily: 'Pretendard',
-                color: Color(0xFF686C75),
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text(
-              '삭제',
-              style: TextStyle(
-                fontFamily: 'Pretendard',
-                color: Color(0xFF814083),
-              ),
-            ),
-          ),
-        ],
       ),
     );
 
@@ -532,10 +617,10 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
         context,
         listen: false,
       ).refrigeratorLogs;
-      for (String cardName in _selectedCards) {
-        // UserLog에서 해당 음식 찾기
+      for (String cardId in _selectedCards) {
+        // UserLog에서 해당 음식 찾기 (id로 검색)
         UserLog logToDelete = currentUserLogs.firstWhere(
-          (log) => log.foodName == cardName,
+          (log) => log.id == cardId,
         );
 
         // Provider를 통해 삭제
@@ -560,6 +645,50 @@ class _RefrigeratorScreenState extends State<RefrigeratorScreen> {
         ),
       );
     }
+  }
+
+  // 정렬 다이얼로그 표시
+  void _showSortDialog() {
+    showSortDialog(context, _sortType, (newSortType) {
+      setState(() {
+        _sortType = newSortType;
+      });
+    });
+  }
+
+  // UserLog 리스트 정렬
+  List<UserLog> _sortUserLogs(List<UserLog> userLogs) {
+    final sorted = List<UserLog>.from(userLogs);
+
+    if (_sortType == SortType.createdAt) {
+      // 생성일 기준 내림차순 (최신순)
+      sorted.sort((a, b) => b.startDate.compareTo(a.startDate));
+    } else if (_sortType == SortType.remainingDays) {
+      // 남은 기간 기준 오름차순 (남은 기간이 적은 것부터)
+      final now = DateTime.now();
+      sorted.sort((a, b) {
+        int aRemaining = _getRemainingDays(a, now);
+        int bRemaining = _getRemainingDays(b, now);
+        return aRemaining.compareTo(bRemaining);
+      });
+    }
+
+    return sorted;
+  }
+
+  // 남은 기간 계산
+  int _getRemainingDays(UserLog log, DateTime now) {
+    if (log.expiryDate == null) {
+      // expiryDate가 없으면 매우 큰 값 반환 (맨 뒤로)
+      return 999999;
+    }
+    final today = DateTime(now.year, now.month, now.day);
+    final expiry = DateTime(
+      log.expiryDate!.year,
+      log.expiryDate!.month,
+      log.expiryDate!.day,
+    );
+    return expiry.difference(today).inDays;
   }
 
   // 음식 상세 화면 표시

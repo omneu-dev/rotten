@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/communication_detail_top_bar.dart';
 import '../models/update_request.dart';
 import '../services/update_request_service.dart';
+import '../services/user_service.dart';
 
 class UpdateRequestDetailScreen extends StatefulWidget {
   const UpdateRequestDetailScreen({super.key});
@@ -15,6 +16,8 @@ class UpdateRequestDetailScreen extends StatefulWidget {
 class _UpdateRequestDetailScreenState extends State<UpdateRequestDetailScreen> {
   int _selectedTabIndex = 0;
   final UpdateRequestService _updateRequestService = UpdateRequestService();
+  final UserService _userService = UserService();
+  String? _currentUserId;
 
   final List<String> _tabs = ['전체', '요청', '진행중', '보류', '해결'];
 
@@ -23,6 +26,15 @@ class _UpdateRequestDetailScreenState extends State<UpdateRequestDetailScreen> {
     super.initState();
     // Firebase 연결 테스트
     _updateRequestService.testConnection();
+    // 현재 사용자 ID 로드
+    _loadCurrentUserId();
+  }
+
+  Future<void> _loadCurrentUserId() async {
+    final userId = await _userService.getUserId();
+    setState(() {
+      _currentUserId = userId;
+    });
   }
 
   @override
@@ -221,12 +233,19 @@ class _UpdateRequestDetailScreenState extends State<UpdateRequestDetailScreen> {
           itemCount: filteredPosts.length,
           itemBuilder: (context, index) {
             final post = filteredPosts[index];
+            // 본인 글이면 '나'로 표시
+            final displayNickname =
+                (_currentUserId != null && post.userId == _currentUserId)
+                ? '나'
+                : post.userNickname;
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: _buildUpdateRequestCard(
                 title: post.content,
                 date: _formatDate(post.createdAt),
-                userNickname: post.userNickname,
+                userNickname: displayNickname,
+                comment: post.comment,
+                commentCreatedAt: post.commentCreatedAt,
               ),
             );
           },
@@ -284,6 +303,8 @@ class _UpdateRequestDetailScreenState extends State<UpdateRequestDetailScreen> {
     required String title,
     required String date,
     required String userNickname,
+    String? comment,
+    DateTime? commentCreatedAt,
   }) {
     return Container(
       width: double.infinity,
@@ -297,6 +318,7 @@ class _UpdateRequestDetailScreenState extends State<UpdateRequestDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            // 요청 내용
             Text(
               title,
               style: const TextStyle(
@@ -336,6 +358,89 @@ class _UpdateRequestDetailScreenState extends State<UpdateRequestDetailScreen> {
                 ),
               ],
             ),
+            // 운영진 답변 섹션
+            if (comment != null && comment.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Transform.rotate(
+                      angle: 3.14159, // 180도 회전 (π radians)
+                      child: Icon(
+                        Icons.reply,
+                        size: 16,
+                        color: const Color(0xFF495874),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF7F7F7),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              comment,
+                              style: const TextStyle(
+                                fontFamily: 'Pretendard',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF363A48),
+                                height: 24 / 14,
+                                letterSpacing: -0.4,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '운영자',
+                                  style: TextStyle(
+                                    fontFamily: 'Pretendard',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF495874),
+                                    height: 18 / 12,
+                                    letterSpacing: -0.2,
+                                  ),
+                                ),
+                                Text(
+                                  commentCreatedAt != null
+                                      ? _formatDate(commentCreatedAt)
+                                      : '',
+                                  style: const TextStyle(
+                                    fontFamily: 'Pretendard',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF495874),
+                                    height: 18 / 12,
+                                    letterSpacing: -0.2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ],
         ),
       ),

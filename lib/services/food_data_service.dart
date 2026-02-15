@@ -3,17 +3,23 @@ import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/food.dart';
 import '../models/user_log.dart';
+import 'user_service.dart';
 
 class FoodDataService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final UserService _userService = UserService();
   final String _collectionName = 'foodData';
 
-  // TODO: 실제 인증 시스템 연동 시 Firebase Auth의 uid 사용
-  final String _userId = 'V8bVSjONyVdach5ImbHP68rzH0e2'; // 임시 고정 사용자 ID
+  /// 사용자별 foodLog 컬렉션 참조 반환 (비동기)
+  Future<CollectionReference> _getUserFoodLogCollection() async {
+    final userId = await _userService.getUserId();
+    return _firestore.collection('users').doc(userId).collection('foodLog');
+  }
 
-  /// 사용자별 foodLog 컬렉션 참조 반환
-  CollectionReference get _userFoodLogCollection {
-    return _firestore.collection('users').doc(_userId).collection('foodLog');
+  /// 현재 사용자 문서 참조 반환 (비동기)
+  Future<DocumentReference> _getUserDocument() async {
+    final userId = await _userService.getUserId();
+    return _firestore.collection('users').doc(userId);
   }
 
   /// JSON 파일에서 음식 데이터를 로드
@@ -21,7 +27,7 @@ class FoodDataService {
     try {
       // assets에서 JSON 파일 읽기
       final String jsonString = await rootBundle.loadString(
-        'assets/seed/food_data_ko.json',
+        'assets/seed/food_data_ko_251215.json',
       );
 
       // JSON 파싱
@@ -52,6 +58,7 @@ class FoodDataService {
   }
 
   /// Firestore에 음식 데이터 일괄 업로드
+  /// 주의: 운영자 권한이 필요합니다.
   Future<bool> uploadFoodDataToFirestore() async {
     try {
       print('음식 데이터 업로드 시작...');
@@ -82,7 +89,15 @@ class FoodDataService {
       print('음식 데이터 업로드 완료: ${foods.length}개');
       return true;
     } catch (e) {
-      print('음식 데이터 업로드 실패: $e');
+      final errorMessage = e.toString();
+      final isPermissionError = errorMessage.contains('permission-denied') ||
+          errorMessage.contains('PERMISSION_DENIED');
+      
+      if (isPermissionError) {
+        print('음식 데이터 업로드 실패: 운영자 권한이 필요합니다.');
+      } else {
+        print('음식 데이터 업로드 실패: $e');
+      }
       return false;
     }
   }
@@ -144,6 +159,7 @@ class FoodDataService {
   }
 
   /// Firestore 컬렉션 데이터 전체 삭제 (재업로드 시 사용)
+  /// 주의: 운영자 권한이 필요합니다.
   Future<bool> clearFoodDataCollection() async {
     try {
       print('기존 음식 데이터 삭제 시작...');
@@ -163,21 +179,41 @@ class FoodDataService {
       print('기존 음식 데이터 삭제 완료: ${snapshot.docs.length}개');
       return true;
     } catch (e) {
-      print('음식 데이터 삭제 실패: $e');
+      final errorMessage = e.toString();
+      final isPermissionError = errorMessage.contains('permission-denied') ||
+          errorMessage.contains('PERMISSION_DENIED');
+      
+      if (isPermissionError) {
+        print('음식 데이터 삭제 실패: 운영자 권한이 필요합니다.');
+      } else {
+        print('음식 데이터 삭제 실패: $e');
+      }
       return false;
     }
   }
 
   /// 전체 재업로드 (기존 데이터 삭제 후 새로 업로드)
+  /// 주의: 운영자 권한이 필요합니다.
   Future<bool> reuploadAllFoodData() async {
     try {
       // 기존 데이터 삭제
-      await clearFoodDataCollection();
+      final deleteSuccess = await clearFoodDataCollection();
+      if (!deleteSuccess) {
+        return false;
+      }
 
       // 새 데이터 업로드
       return await uploadFoodDataToFirestore();
     } catch (e) {
-      print('음식 데이터 재업로드 실패: $e');
+      final errorMessage = e.toString();
+      final isPermissionError = errorMessage.contains('permission-denied') ||
+          errorMessage.contains('PERMISSION_DENIED');
+      
+      if (isPermissionError) {
+        print('음식 데이터 재업로드 실패: 운영자 권한이 필요합니다.');
+      } else {
+        print('음식 데이터 재업로드 실패: $e');
+      }
       return false;
     }
   }
@@ -189,7 +225,8 @@ class FoodDataService {
     try {
       print('사용자 음식 로그 저장 시작: ${userLog.foodName}');
 
-      await _userFoodLogCollection.doc(userLog.id).set(userLog.toFirestore());
+      final collection = await _getUserFoodLogCollection();
+      await collection.doc(userLog.id).set(userLog.toFirestore());
 
       print('사용자 음식 로그 저장 완료: ${userLog.foodName}');
       return true;
@@ -200,25 +237,28 @@ class FoodDataService {
   }
 
   /// UserLog 생성 헬퍼 메서드
-  UserLog createUserLog({
+  ///
+  /// [manualExpiryDate]가 제공되면 해당 값을 사용하고,
+  /// null인 경우 음식 데이터 기반으로 유효기한을 계산합니다.
+  Future<UserLog> createUserLog({
     required Food food,
     required String category,
     required String location,
     required String condition,
     required DateTime startDate,
     required bool isSealed,
-  }) {
+    String? customEmojiPath, // 커스텀 이모지 경로 (선택적)
+    DateTime? manualExpiryDate, // 사용자가 직접 지정한 권장 폐기일 (선택적)
+  }) async {
     final now = DateTime.now();
-    final expiryDate = calculateExpiryDate(
-      food,
-      location,
-      condition,
-      isSealed,
-      startDate,
-    );
+    final expiryDate =
+        manualExpiryDate ??
+        calculateExpiryDate(food, location, condition, isSealed, startDate);
+
+    final collection = await _getUserFoodLogCollection();
 
     return UserLog(
-      id: _userFoodLogCollection.doc().id,
+      id: collection.doc().id,
       foodId: food.id,
       foodName: food.name,
       category: category,
@@ -227,7 +267,7 @@ class FoodDataService {
       startDate: startDate,
       expiryDate: expiryDate,
       isSealed: isSealed,
-      emojiPath: food.emojiPath,
+      emojiPath: customEmojiPath ?? food.emojiPath, // 커스텀 경로 우선 사용
       updatedAt: now,
     );
   }
@@ -262,7 +302,8 @@ class FoodDataService {
     try {
       print('사용자 음식 로그 조회 시작');
 
-      QuerySnapshot querySnapshot = await _userFoodLogCollection
+      final collection = await _getUserFoodLogCollection();
+      QuerySnapshot querySnapshot = await collection
           .orderBy('startDate', descending: true)
           .get();
 
@@ -283,15 +324,17 @@ class FoodDataService {
     try {
       print('$location 음식 로그 조회 시작');
 
+      final collection = await _getUserFoodLogCollection();
+
       // storage_type 필드로 직접 쿼리 (빠른 조회)
-      QuerySnapshot querySnapshot = await _userFoodLogCollection
+      QuerySnapshot querySnapshot = await collection
           .where('storage_type', isEqualTo: location)
           .get();
 
       // storage_type으로 찾지 못하면 location 필드로 시도 (기존 데이터 호환성)
       if (querySnapshot.docs.isEmpty) {
         print('storage_type으로 찾지 못함, location 필드로 재시도');
-        querySnapshot = await _userFoodLogCollection
+        querySnapshot = await collection
             .where('location', isEqualTo: location)
             .get();
       }
@@ -322,7 +365,8 @@ class FoodDataService {
     try {
       print('사용자 음식 로그 삭제 시작: $logId');
 
-      await _userFoodLogCollection.doc(logId).delete();
+      final collection = await _getUserFoodLogCollection();
+      await collection.doc(logId).delete();
 
       print('사용자 음식 로그 삭제 완료: $logId');
       return true;
@@ -340,7 +384,8 @@ class FoodDataService {
     try {
       print('사용자 음식 로그 권장폐기일 업데이트 시작: $logId -> ${newExpiryDate.toString()}');
 
-      await _userFoodLogCollection.doc(logId).update({
+      final collection = await _getUserFoodLogCollection();
+      await collection.doc(logId).update({
         'expiryDate': Timestamp.fromDate(newExpiryDate),
         'updatedAt': Timestamp.fromDate(DateTime.now()),
       });
@@ -358,7 +403,8 @@ class FoodDataService {
     try {
       print('사용자 음식 로그 이모지 경로 업데이트 시작: $logId -> $newEmojiPath');
 
-      await _userFoodLogCollection.doc(logId).update({
+      final collection = await _getUserFoodLogCollection();
+      await collection.doc(logId).update({
         'emojiPath': newEmojiPath,
         'updatedAt': Timestamp.fromDate(DateTime.now()),
       });
@@ -386,13 +432,117 @@ class FoodDataService {
         updateData['trashEntryDate'] = Timestamp.fromDate(DateTime.now());
       }
 
-      await _userFoodLogCollection.doc(logId).update(updateData);
+      final collection = await _getUserFoodLogCollection();
+      await collection.doc(logId).update(updateData);
 
       print('사용자 음식 로그 카테고리 업데이트 완료: $logId');
       return true;
     } catch (e) {
       print('사용자 음식 로그 카테고리 업데이트 실패: $e');
       return false;
+    }
+  }
+
+  /// 사용자 로그의 특정 필드 업데이트 (범용)
+  Future<bool> updateUserLogField(
+    String logId,
+    String fieldName,
+    dynamic value,
+  ) async {
+    try {
+      print('사용자 음식 로그 필드 업데이트 시작: $logId - $fieldName');
+
+      final collection = await _getUserFoodLogCollection();
+      await collection.doc(logId).update({fieldName: value});
+
+      print('사용자 음식 로그 필드 업데이트 완료: $logId - $fieldName');
+      return true;
+    } catch (e) {
+      print('사용자 음식 로그 필드 업데이트 실패: $e');
+      return false;
+    }
+  }
+
+  /// 현재 사용자의 proEarlyBird 필드 업데이트
+  Future<bool> updateUserProEarlyBird(bool value) async {
+    try {
+      final userDoc = await _getUserDocument();
+      print('사용자 proEarlyBird 필드 업데이트 시작: ${userDoc.id} -> $value');
+
+      await userDoc.set({
+        'proEarlyBird': value,
+        'updatedAt': Timestamp.fromDate(DateTime.now()),
+      }, SetOptions(merge: true)); // merge: true로 기존 데이터 유지하면서 업데이트
+
+      print('사용자 proEarlyBird 필드 업데이트 완료: ${userDoc.id}');
+      return true;
+    } catch (e) {
+      print('사용자 proEarlyBird 필드 업데이트 실패: $e');
+      return false;
+    }
+  }
+
+  /// 현재 사용자의 proEarlyBird 필드 조회
+  Future<bool> getUserProEarlyBird() async {
+    try {
+      final userDoc = await _getUserDocument();
+      print('사용자 proEarlyBird 필드 조회 시작: ${userDoc.id}');
+
+      final doc = await userDoc.get();
+
+      if (doc.exists && doc.data() != null) {
+        final data = doc.data() as Map<String, dynamic>;
+        final proEarlyBird = data['proEarlyBird'] as bool?;
+        print('사용자 proEarlyBird 필드 조회 완료: $proEarlyBird');
+        return proEarlyBird ?? false;
+      }
+
+      print('사용자 proEarlyBird 필드 없음, 기본값 false 반환');
+      return false;
+    } catch (e) {
+      print('사용자 proEarlyBird 필드 조회 실패: $e');
+      return false;
+    }
+  }
+
+  /// 특정 음식 이름으로 조회하여 JSON 형식으로 반환
+  Future<String?> getFoodJsonByName(String name) async {
+    try {
+      final querySnapshot = await _firestore
+          .collection(_collectionName)
+          .where('name', isEqualTo: name)
+          .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        return null;
+      }
+
+      final doc = querySnapshot.docs.first;
+      final food = Food.fromFirestore(doc.data());
+
+      final json = food.toJson();
+      final encoder = JsonEncoder.withIndent('  ');
+      return encoder.convert(json);
+    } catch (e) {
+      print('음식 JSON 조회 실패: $e');
+      return null;
+    }
+  }
+
+  /// 특정 ID로 조회하여 JSON 형식으로 반환
+  Future<String?> getFoodJsonById(String id) async {
+    try {
+      final food = await getFoodById(id);
+      if (food == null) {
+        return null;
+      }
+
+      final json = food.toJson();
+      final encoder = JsonEncoder.withIndent('  ');
+      return encoder.convert(json);
+    } catch (e) {
+      print('음식 JSON 조회 실패: $e');
+      return null;
     }
   }
 }

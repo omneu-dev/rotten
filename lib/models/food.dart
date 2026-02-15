@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Food {
   final String id;
   final String name;
   final String category;
   final String emojiPath;
   final Map<String, int> shelfLifeMap;
+  final String? aiStorageTips;
   final DateTime? updatedAt;
 
   Food({
@@ -12,6 +15,7 @@ class Food {
     required this.category,
     required this.emojiPath,
     required this.shelfLifeMap,
+    this.aiStorageTips,
     this.updatedAt,
   });
 
@@ -23,6 +27,7 @@ class Food {
       category: json['category'] as String,
       emojiPath: json['emojiPath'] as String,
       shelfLifeMap: Map<String, int>.from(json['shelfLifeMap'] as Map),
+      aiStorageTips: json['aiStorageTips'] as String?,
       updatedAt: json['updatedAt'] != null
           ? DateTime.now() // _serverTimestamp는 현재 시간으로 설정
           : null,
@@ -37,7 +42,8 @@ class Food {
       'category': category,
       'emojiPath': emojiPath,
       'shelfLifeMap': shelfLifeMap,
-      'updatedAt': updatedAt ?? DateTime.now(),
+      'aiStorageTips': aiStorageTips,
+      'updatedAt': Timestamp.fromDate(updatedAt ?? DateTime.now()),
     };
   }
 
@@ -49,7 +55,21 @@ class Food {
       category: data['category'] as String,
       emojiPath: data['emojiPath'] as String,
       shelfLifeMap: Map<String, int>.from(data['shelfLifeMap'] as Map),
+      aiStorageTips: data['aiStorageTips'] as String?,
       updatedAt: data['updatedAt']?.toDate(),
     );
+  }
+
+  // JSON 파일 형식으로 변환 (food_data_ko_251215.json 형식)
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'category': category,
+      'emojiPath': emojiPath,
+      if (aiStorageTips != null) 'aiStorageTips': aiStorageTips,
+      'shelfLifeMap': shelfLifeMap,
+      'updatedAt': {'_serverTimestamp': true},
+    };
   }
 }

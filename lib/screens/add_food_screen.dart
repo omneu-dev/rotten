@@ -5,7 +5,9 @@ import '../models/food.dart';
 import 'food_detail_screen.dart';
 
 class AddFoodScreen extends StatefulWidget {
-  const AddFoodScreen({super.key});
+  final String defaultLocation; // '냉장' 또는 '냉동'
+
+  const AddFoodScreen({super.key, this.defaultLocation = '냉장'});
 
   @override
   State<AddFoodScreen> createState() => _AddFoodScreenState();
@@ -18,6 +20,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   List<Food> _allFoods = [];
   List<Food> _filteredFoods = [];
   Food? _selectedFood; // 선택된 음식을 추적
+  Set<String> _expandedCategories = {}; // 펼쳐진 카테고리 추적
 
   // 냉장고 페이지와 동일한 카테고리 정의
   final List<String> _categories = [
@@ -30,7 +33,8 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     '베이커리',
     '디저트',
     '커피·술·음료',
-    '조리된 음식',
+    '국·반찬·메인요리',
+    '조미료·양념',
     '기타',
   ];
 
@@ -86,9 +90,14 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     });
   }
 
-  // 카테고리별 음식 필터링
+  // 카테고리별 음식 필터링 및 가나다순 정렬
   List<Food> _getFoodsByCategory(String category) {
-    return _filteredFoods.where((food) => food.category == category).toList();
+    final foods = _filteredFoods
+        .where((food) => food.category == category)
+        .toList();
+    // 가나다순 정렬
+    foods.sort((a, b) => a.name.compareTo(b.name));
+    return foods;
   }
 
   @override
@@ -106,6 +115,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
           ? FoodDetailScreen(
               selectedFood: _selectedFood!,
               onBack: () => setState(() => _selectedFood = null),
+              isCustomFood:
+                  _selectedFood!.emojiPath.isEmpty, // 이모지가 비어있으면 직접 추가
+              initialLocation: widget.defaultLocation,
             )
           : Column(
               children: [
@@ -232,8 +244,11 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       }
     }
 
+    // 검색 중일 때는 카테고리 구분 없이 모든 결과를 2열 그리드로 표시
+    final isSearching = _searchController.text.isNotEmpty;
+
     // 검색 결과가 없을 때 직접 추가 버튼 표시
-    if (_filteredFoods.isEmpty && _searchController.text.isNotEmpty) {
+    if (_filteredFoods.isEmpty && isSearching) {
       return Column(
         children: [
           const SizedBox(height: 24),
@@ -270,6 +285,34 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
       );
     }
 
+    // 검색 중일 때는 카테고리 구분 없이 모든 결과 표시
+    if (isSearching) {
+      return SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 2.5, // 가로로 긴 카드 형태
+              ),
+              itemCount: _filteredFoods.length,
+              itemBuilder: (context, index) {
+                return _buildFoodItem(_filteredFoods[index]);
+              },
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
+      );
+    }
+
+    // 일반 모드: 카테고리별 드롭다운
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -277,7 +320,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
         children: [
           const SizedBox(height: 8),
 
-          // 카테고리별 음식 표시
+          // 카테고리별 음식 표시 (드롭다운)
           ..._categories.map((category) {
             final categoryFoods = _getFoodsByCategory(category);
 
@@ -285,28 +328,82 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
               return const SizedBox.shrink();
             }
 
+            final isExpanded = _expandedCategories.contains(category);
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 카테고리 제목
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    category,
-                    style: const TextStyle(
-                      fontFamily: 'Pretendard',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF676C74),
-                      height: 22 / 14,
-                      letterSpacing: -0.3,
+                // 카테고리 헤더 (클릭 가능, 흰색 박스 없음)
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    setState(() {
+                      if (isExpanded) {
+                        _expandedCategories.remove(category);
+                      } else {
+                        _expandedCategories.add(category);
+                      }
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      children: [
+                        Text(
+                          category,
+                          style: const TextStyle(
+                            fontFamily: 'Pretendard',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF676C74),
+                            height: 22 / 14,
+                            letterSpacing: -0.3,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '${categoryFoods.length}',
+                          style: const TextStyle(
+                            fontFamily: 'Pretendard',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFFACB1BA),
+                            height: 22 / 14,
+                            letterSpacing: -0.3,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Transform.rotate(
+                          angle: isExpanded ? 3.14159 : 0, // 180도 회전
+                          child: SvgPicture.asset(
+                            'assets/images/arrow_dropdown.svg',
+                            width: 24,
+                            height: 24,
+                            color: const Color(0xFF686C75),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
 
-                // 해당 카테고리의 음식들
-                ...categoryFoods.map((food) => _buildFoodItem(food)).toList(),
-
+                // 해당 카테고리의 음식들 (2열 그리드)
+                if (isExpanded)
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 2.5, // 가로로 긴 카드 형태
+                        ),
+                    itemCount: categoryFoods.length,
+                    itemBuilder: (context, index) {
+                      return _buildFoodItem(categoryFoods[index]);
+                    },
+                  ),
                 const SizedBox(height: 8),
               ],
             );
@@ -323,18 +420,16 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     return GestureDetector(
       onTap: () => _selectFood(food),
       child: Container(
-        margin: const EdgeInsets.only(bottom: 8),
-        padding: const EdgeInsets.all(16),
-        height: 64,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: ShapeDecoration(
-          color: const Color(0xFFEAECF0),
+          color: const Color(0xFFE8ECEF),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
         child: Row(
           children: [
-            // 음식 이미지
+            // 음식 이미지 (왼쪽)
             Container(
               width: 24,
               height: 24,
@@ -342,22 +437,30 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
                   food.emojiPath,
-                  width: 40,
-                  height: 40,
+                  width: 24,
+                  height: 24,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return Icon(
-                      Icons.fastfood,
-                      color: Colors.grey[400],
-                      size: 24,
+                    return Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.fastfood,
+                        color: Colors.grey[400],
+                        size: 20,
+                      ),
                     );
                   },
                 ),
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 12),
 
-            // 음식 정보
+            // 음식 이름 (오른쪽)
             Expanded(
               child: Text(
                 food.name,
@@ -366,25 +469,11 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF363A48),
-                  letterSpacing: -0.3,
+                  letterSpacing: -1,
                   height: 32 / 22,
                 ),
-              ),
-            ),
-
-            // 선택 화살표 (표시용)
-            Container(
-              width: 32,
-              height: 32,
-              padding: const EdgeInsets.all(4),
-              child: Transform.rotate(
-                angle: -1.5708, // -90도 (라디안)
-                child: SvgPicture.asset(
-                  'assets/images/arrow_dropdown.svg',
-                  width: 24,
-                  height: 24,
-                  color: const Color(0xFF686C75),
-                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -407,11 +496,21 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     final customFood = Food(
       id: DateTime.now().millisecondsSinceEpoch.toString(), // 고유 ID 생성
       name: _searchController.text,
-      category: '기타', // 기본 카테고리
+      category: '조리된 음식', // 기본 카테고리
       emojiPath: '', // 빈 문자열로 설정하여 빈 동그라미 표시
       shelfLifeMap: {
-        '냉장': 7, // 기본 보관 기간
-        '냉동': 30,
+        '냉장|통째|false': 3,
+        '냉장|통째|true': 3,
+        '냉장|손질|false': 3,
+        '냉장|손질|true': 3,
+        '냉장|조리됨|false': 3,
+        '냉장|조리됨|true': 3,
+        '냉동|통째|false': 60,
+        '냉동|통째|true': 60,
+        '냉동|손질|false': 60,
+        '냉동|손질|true': 60,
+        '냉동|조리됨|false': 60,
+        '냉동|조리됨|true': 60,
       },
     );
 

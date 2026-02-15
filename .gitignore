@@ -1,9 +1,15 @@
 # Miscellaneous
 *.class
-<<<<<<< HEAD
 *.lock
 *.log
 *.pyc
+.DS_Store
+
+# Python
+.venv/
+venv/
+env/
+__pycache__/
 *.swp
 .buildlog/
 .history
@@ -118,3 +124,37 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+
+# ============================================
+# 보안 파일 (API 키, 인증 정보 등)
+# ============================================
+
+# 환경 변수 파일
+.env
+.env.local
+.env.*.local
+*.env
+
+# Firebase 서비스 계정 키
+serviceAccountKey.json
+**/serviceAccountKey.json
+**/service-account-key.json
+**/*-service-account-key.json
+**/google-services.json
+**/GoogleService-Info.plist
+**/firebase-adminsdk-*.json
+
+# API 키 및 인증 정보
+**/secrets/
+**/credentials/
+**/*.pem
+**/*.key
+**/*.p12
+**/*.keystore
+**/*.jks
+
+# 서버 디렉토리 보안 파일
+server/.env
+server/.env.local
+server/**/service-account-key.json
+server/**/*-service-account-key.json

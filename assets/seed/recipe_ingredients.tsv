@@ -1,0 +1,315 @@
+recipe_id	ingredient_order	type	raw_item_name	food_ref_id	amount	unit
+b17be2032de8	1	ingredient	생굴		250.0	그람
+b17be2032de8	2	ingredient	무		250.0	그람
+b17be2032de8	3	ingredient	쪾파		3.0	뿌리
+b17be2032de8	4	ingredient	다진대파		1.0	숟갈
+b17be2032de8	5	ingredient	통마늘		3.0	개 슬라이스
+b17be2032de8	6	sauce	고추가루		2.0	숟갈 (크게)
+b17be2032de8	7	sauce	다진마늘		0.5	숟갈
+b17be2032de8	8	sauce	생강즙		1.0	숟갈
+b17be2032de8	9	sauce	물엿		2.0	숟갈
+b17be2032de8	10	sauce	미원		1.0	꼬집
+b17be2032de8	11	sauce	새우젓 국물		1.5	숟갈
+dae43d9f70dc	1	ingredient	닭가슴살		300.0	그람
+dae43d9f70dc	2	ingredient	양파		0.33	개
+dae43d9f70dc	3	ingredient	느타리버섯		0.33	팩
+dae43d9f70dc	4	ingredient	대파		0.33	대
+dae43d9f70dc	5	ingredient	계란		3.0	개
+dae43d9f70dc	6	sauce	맛술		3.0	숟갈
+dae43d9f70dc	7	sauce	진간장		3.0	숟갈
+dae43d9f70dc	8	sauce	굴소스		0.67	숟갈
+dae43d9f70dc	9	sauce	설탕		1.0	숟갈
+7f5f812b82c8	1	ingredient	유동골뱅이		400.0	그람 * 1캔
+7f5f812b82c8	2	ingredient	소면		1.0	인분
+7f5f812b82c8	3	ingredient	양파		0.17	개
+7f5f812b82c8	4	ingredient	오이		0.33	개
+7f5f812b82c8	5	ingredient	당근		1.0	토막
+7f5f812b82c8	6	ingredient	양배추		70.0	그람
+7f5f812b82c8	7	ingredient	청양고추		1.0	~2개
+7f5f812b82c8	8	ingredient	꺳잎		3.0	~4장
+7f5f812b82c8	9	sauce	초고추장		0.67	컵
+7f5f812b82c8	10	sauce	고운 고추가루		3.0	숟갈 (크게)
+7f5f812b82c8	11	sauce	다진마늘		1.0	숟갈 (크게)
+7f5f812b82c8	12	sauce	참치액		2.0	숟갈
+7f5f812b82c8	13	sauce	골뱅이국물		0.33	컵
+0192930a2957	1	ingredient	순살고등어		2.0	쪽
+0192930a2957	2	ingredient	양파		0.33	개
+0192930a2957	3	ingredient	대파		1.0	토막
+0192930a2957	4	ingredient	청양고추		2.0	개
+0192930a2957	5	sauce	맛술		4.0	숟갈
+0192930a2957	6	sauce	진간장		1.5	숟갈
+0192930a2957	7	sauce	액젓		1.5	숟갈
+0192930a2957	8	sauce	굴소스		0.67	숟갈
+0192930a2957	9	sauce	설탕		0.67	숟갈
+0192930a2957	10	sauce	다진마늘		0.67	숟갈
+0192930a2957	11	sauce	고추장		1.0	숟갈
+0192930a2957	12	sauce	고추가루		1.0	숟갈
+0192930a2957	13	sauce	들기름		1.0	숟갈
+24646d41ef2a	1	ingredient	순두부		1.0	봉지
+24646d41ef2a	2	ingredient	대패삼겹		200.0	g
+24646d41ef2a	3	ingredient	대파		1.0	대 (다진것)
+24646d41ef2a	4	sauce	다진마늘		1.0	숟갈 (작게)
+24646d41ef2a	5	sauce	고추가루		2.0	숟갈(크게)
+24646d41ef2a	6	sauce	꽃소금		0.33	숟갈
+24646d41ef2a	7	sauce	맛소금		0.33	숟갈
+24646d41ef2a	8	sauce	굴소스		0.33	숟갈
+fc91cca5b61c	1	ingredient	닭다리살		250.0	그람
+fc91cca5b61c	2	ingredient	닭가슴살		250.0	그람
+fc91cca5b61c	3	ingredient	대파		2.0	대
+fc91cca5b61c	4	ingredient	감자		1.0	개
+fc91cca5b61c	5	ingredient	닭고기 종류는 상관			없어요!
+fc91cca5b61c	6	sauce	마요네즈		1.5	숟갈(크게)
+fc91cca5b61c	7	sauce	굴소스		0.67	숟갈(크게)
+fc91cca5b61c	8	sauce	고추가루		3.0	숟갈(크게)
+8a50e938e07b	1	ingredient	우삼겹		200.0	그람
+8a50e938e07b	2	ingredient	당면		30.0	그람
+8a50e938e07b	3	ingredient	대파		1.0	대
+8a50e938e07b	4	sauce	다진마늘		0.5	숟갈
+8a50e938e07b	5	sauce	진간장		1.0	숟갈
+8a50e938e07b	6	sauce	참치액		1.0	숟갈
+ea7a0978e103	1	ingredient	코다리		2.0	마리
+ea7a0978e103	2	ingredient	무		1.0	토막
+ea7a0978e103	3	ingredient	양파		0.5	개
+ea7a0978e103	4	ingredient	대파		1.0	대
+ea7a0978e103	5	ingredient	당근			조금(고명)
+ea7a0978e103	6	ingredient	시래기		1.0	팩 (취향껏)
+ea7a0978e103	7	ingredient	시래기는 마트에서 판매하는 ‘데친시레기’ 사용하시면			됩니다.
+ea7a0978e103	8	sauce	진간장		0.5	컵
+ea7a0978e103	9	sauce	미림		5.0	숟갈
+ea7a0978e103	10	sauce	물엿		5.0	숟갈
+ea7a0978e103	11	sauce	다진마늘		2.0	숟갈
+ea7a0978e103	12	sauce	다진생강		0.5	숟갈(깍아서)
+ea7a0978e103	13	sauce	고추가루		1.0	컵
+ea7a0978e103	14	sauce	굴소스		1.5	숟갈
+ea7a0978e103	15	sauce	까나리액젓		2.0	숟갈
+ea7a0978e103	16	sauce	설탕		1.0	숟갈
+ea7a0978e103	17	sauce	까나리액젓이 없으면, 간장이랑 굴소스 조금씩 더			넣어주세요!
+f3ab1e4bb987	1	ingredient	감자		1.0	개
+f3ab1e4bb987	2	ingredient	햄		100.0	그람
+f3ab1e4bb987	3	ingredient	당근			조금
+f3ab1e4bb987	4	sauce	진간장		2.5	숟갈
+f3ab1e4bb987	5	sauce	맛술		2.5	숟갈
+f3ab1e4bb987	6	sauce	물엿		1.5	숟갈
+f3ab1e4bb987	7	sauce	굴소스		0.12	숟갈
+e06ea558d4f4	1	ingredient	새우젓		1.0	숟갈
+e06ea558d4f4	2	ingredient	대파		2.0	토막
+e06ea558d4f4	3	ingredient	마늘		3.0	알
+e06ea558d4f4	4	ingredient	청양고추		2.0	개
+e06ea558d4f4	5	ingredient	홍고추		1.0	개
+e06ea558d4f4	6	sauce	고추가루		0.67	숟갈
+e06ea558d4f4	7	sauce	맛술		1.0	숟갈
+a328c592276f	1	ingredient	무		150.0	그람
+a328c592276f	2	ingredient	다진대파		1.0	숟갈
+a328c592276f	3	ingredient	채썬당근			조금(고명)
+a328c592276f	4	sauce	식초		8.0	숟갈
+a328c592276f	5	sauce	설탕		3.0	숟갈
+a328c592276f	6	sauce	생수		120.0	ml
+a328c592276f	7	sauce	꽃소금		0.33	숟갈
+a328c592276f	8	sauce	국간장		0.67	숟갈
+68f919dd2beb	1	ingredient	배추 우거지		200.0	g
+68f919dd2beb	2	ingredient	다시마		1.0	쪽
+68f919dd2beb	3	ingredient	멸치		10.0	g
+68f919dd2beb	4	ingredient	두부			조금
+68f919dd2beb	5	ingredient	대파		1.0	토막
+68f919dd2beb	6	sauce	된장		1.5	숟갈
+68f919dd2beb	7	sauce	다진마늘		0.5	숟갈
+68f919dd2beb	8	sauce	고추가루		0.5	숟갈
+0afc9c12c52f	1	ingredient	배추 큰거		1.0	포기
+0afc9c12c52f	2	ingredient	무		1.0	개
+0afc9c12c52f	3	ingredient	대파		3.0	대
+0afc9c12c52f	4	ingredient	쪽파		15.0	뿌리
+0afc9c12c52f	5	ingredient	배추 큰거		2.0	포기
+0afc9c12c52f	6	ingredient	무		2.0	개
+0afc9c12c52f	7	ingredient	대파		5.0	대
+0afc9c12c52f	8	ingredient	쪽파		1.0	줌
+0afc9c12c52f	9	sauce	물		6.0	리터
+0afc9c12c52f	10	sauce	뉴슈가		0.67	숟갈
+0afc9c12c52f	11	sauce	배		0.5	개
+0afc9c12c52f	12	sauce	양파		0.5	개
+0afc9c12c52f	13	sauce	다진마늘		3.0	숟갈
+0afc9c12c52f	14	sauce	다진생강		1.0	숟갈
+0afc9c12c52f	15	sauce	찬밥		0.5	공기(90그람)
+0afc9c12c52f	16	sauce	물		12.0	리터
+0afc9c12c52f	17	sauce	꽃소금		2.5	컵
+0afc9c12c52f	18	sauce	뉴슈가		1.5	숟갈
+0afc9c12c52f	19	sauce	다진마늘		6.0	숟갈
+0afc9c12c52f	20	sauce	다진생강		2.0	숟갈
+0afc9c12c52f	21	sauce	찬밥		1.0	공기(180그람)
+1fa1cb7df062	1	ingredient	파스타면		150.0	그람
+1fa1cb7df062	2	ingredient	우삼겹		200.0	그람
+1fa1cb7df062	3	ingredient	김치		250.0	그람
+1fa1cb7df062	4	ingredient	편마늘		0.5	컵(50그람)
+1fa1cb7df062	5	ingredient	깻잎		3.0	장
+1fa1cb7df062	6	sauce	올리브오일		0.5	컵
+1fa1cb7df062	7	sauce	들기름		4.0	숟갈
+1fa1cb7df062	8	sauce	들깨가루		1.5	숟갈
+1fa1cb7df062	9	sauce	꽃소금		1.0	꼬집
+1fa1cb7df062	10	sauce	굴소스		0.5	숟갈
+13c2f35f64be	1	ingredient	칵테일 새우		200.0	그람
+13c2f35f64be	2	ingredient	감자수제비		100.0	그람
+13c2f35f64be	3	ingredient	방울토마토		8.0	개
+13c2f35f64be	4	ingredient	쪼깦		3.0	뿌리
+13c2f35f64be	5	sauce	올리브오일		0.67	컵
+13c2f35f64be	6	sauce	굴소스		0.67	숟갈
+13c2f35f64be	7	sauce	크레쉬드 페퍼		0.33	숟갈
+101b3421d0db	1	ingredient	마른당면		100.0	그람
+101b3421d0db	2	ingredient	일자 콩나물		300.0	그람
+101b3421d0db	3	ingredient	어묵		3.0	장
+101b3421d0db	4	ingredient	양파		0.33	개
+101b3421d0db	5	ingredient	청양고추		2.0	개
+101b3421d0db	6	ingredient	홍고추		1.0	개
+101b3421d0db	7	ingredient	부추			조금(취향껏)
+101b3421d0db	8	sauce	진간장		3.0	숟갈
+101b3421d0db	9	sauce	물엿		2.0	숟갈
+101b3421d0db	10	sauce	맛술		2.0	숟갈
+101b3421d0db	11	sauce	고추가루		2.0	숟갈
+101b3421d0db	12	sauce	다진마늘		1.0	숟갈 (작게)
+b7fcc3dd16c6	1	ingredient	찹쌀가루		2.0	숟갈
+b7fcc3dd16c6	2	sauce	꽃소금		0.33	숟갈
+b7fcc3dd16c6	3	sauce	스테비아		0.33	숟갈
+2a47c87664e4	1	ingredient	궁채		100.0	그람
+2a47c87664e4	2	ingredient	다진대파		2.0	숟갈
+2a47c87664e4	3	ingredient	다진마늘			반숟갈
+2a47c87664e4	4	sauce	맛소금		0.67	숟갈
+2a47c87664e4	5	sauce	굴소스		0.5	숟갈
+2a47c87664e4	6	sauce	탈피 들깨가루		4.0	숟갈
+a81fb57b8c7f	1	ingredient	만두		6.0	개
+a81fb57b8c7f	2	ingredient	당면		60.0	그람
+a81fb57b8c7f	3	ingredient	대파		1.0	대
+a81fb57b8c7f	4	ingredient	계란		3.0	개
+a81fb57b8c7f	5	sauce	꽃소금		1.0	꼬집
+a81fb57b8c7f	6	sauce	참치액		1.5	숟갈
+e8a08816d0d3	1	ingredient	유동번데기		130.0	그람 * 1캔
+e8a08816d0d3	2	ingredient	다진 양파		1.0	숟갈
+e8a08816d0d3	3	ingredient	다진 대파		1.0	숟갈
+e8a08816d0d3	4	ingredient	청양고추		1.0	개
+e8a08816d0d3	5	ingredient	유동번데기		130.0	그람 * 3캔
+e8a08816d0d3	6	ingredient	다진 양파		3.0	숟갈
+e8a08816d0d3	7	ingredient	다진 대파		3.0	숟갈
+e8a08816d0d3	8	ingredient	청양고추		2.0	개
+e8a08816d0d3	9	ingredient	홍고추		1.0	개
+e8a08816d0d3	10	sauce	고추가루		0.2	숟갈
+e8a08816d0d3	11	sauce	유동번데기는 다른 소스는 필요			없어요!
+e8a08816d0d3	12	sauce	고추가루		0.5	숟갈
+e8a08816d0d3	13	sauce	유동번데기는 다른 소스는 필요			없어요!
+d919dcc1a4f8	1	ingredient	육회		200.0	그람
+d919dcc1a4f8	2	ingredient	상추		3.0	장
+d919dcc1a4f8	3	ingredient	꺳잎		2.0	장
+d919dcc1a4f8	4	sauce	다진대파		0.67	숟갈
+d919dcc1a4f8	5	sauce	다진마늘		0.33	갈
+d919dcc1a4f8	6	sauce	진간장		2.0	숟갈
+d919dcc1a4f8	7	sauce	설탕		1.0	숟갈
+d919dcc1a4f8	8	sauce	맛술		1.0	숟갈
+d919dcc1a4f8	9	sauce	맛소금		0.33	숟갈
+d919dcc1a4f8	10	sauce	볶은깨		0.67	숟갈
+d919dcc1a4f8	11	sauce	참기름		2.0	숟갈
+d919dcc1a4f8	12	sauce	고추가루		0.33	숟갈
+1c76ea51c063	1	ingredient	시금치		0.5	단
+1c76ea51c063	2	ingredient	대파		1.0	토막
+1c76ea51c063	3	ingredient	팽이버섯		0.25	봉
+1c76ea51c063	4	ingredient	두부		100.0	그람
+1c76ea51c063	5	ingredient	멸치		10.0	그람
+1c76ea51c063	6	ingredient	다시마		1.0	쪽
+1c76ea51c063	7	sauce	된장		1.5	숟갈
+1c76ea51c063	8	sauce	다진마늘		0.5	숟갈
+1c76ea51c063	9	sauce	물		5.0	숟갈
+b26fe0294f4d	1	sauce	물		2.0	컵
+b26fe0294f4d	2	sauce	진간장		7.0	숟갈
+b26fe0294f4d	3	sauce	물엿		6.0	숟갈
+b26fe0294f4d	4	sauce	맛술		5.0	숟갈
+c86e0835f951	1	ingredient	밥		2.0	공기
+c86e0835f951	2	ingredient	스팸			작은캔
+c86e0835f951	3	ingredient	감자			반개
+c86e0835f951	4	ingredient	애호박			반개
+c86e0835f951	5	ingredient	양파		0.25	개
+c86e0835f951	6	ingredient	당근			조금
+c86e0835f951	7	ingredient	대파		1.0	대
+c86e0835f951	8	ingredient	없는 재료는 빼셔도			됩니다!
+c86e0835f951	9	sauce	진간장		1.5	숟갈
+c86e0835f951	10	sauce	맛소금		1.0	꼬집
+c86e0835f951	11	sauce	후추			조금
+3869287cfecb	1	ingredient	생굴		300.0	그람
+3869287cfecb	2	ingredient	무 채썬거		2.0	줌
+3869287cfecb	3	ingredient	쪽파		5.0	뿌리
+3869287cfecb	4	ingredient	들기름		3.0	숟갈
+3869287cfecb	5	ingredient	[달래장]			
+3869287cfecb	6	ingredient	달래		0.5	묶음
+3869287cfecb	7	ingredient	청양고추		2.0	개
+3869287cfecb	8	ingredient	당근			조금
+3869287cfecb	9	ingredient	진간장		1.0	컵
+3869287cfecb	10	ingredient	맛술		2.5	숟갈
+3869287cfecb	11	ingredient	고추가루		2.5	숟갈
+3869287cfecb	12	ingredient	설탕		1.0	숟갈
+3869287cfecb	13	ingredient	다진마늘		1.0	숟갈
+9c729f437a72	1	ingredient	파스타면		250.0	그람
+9c729f437a72	2	ingredient	참치액		200.0	그람 * 1캔
+9c729f437a72	3	ingredient	얇게썬 대파		0.67	컵
+9c729f437a72	4	sauce	참치액		1.5	숟갈
+9c729f437a72	5	sauce	맛소금		1.0	꼬집
+9c729f437a72	6	sauce	후추가루			톡톡톡
+b7612ba56d73	1	ingredient	골뱅이		400.0	그람 * 1캔
+b7612ba56d73	2	ingredient	소면		1.0	인분
+b7612ba56d73	3	ingredient	양파		0.33	개
+b7612ba56d73	4	ingredient	대파		0.33	대
+b7612ba56d73	5	ingredient	청양고추		2.0	개
+b7612ba56d73	6	ingredient	홍고추		1.0	개
+b7612ba56d73	7	ingredient	꺳잎		2.0	장 (고명)
+b7612ba56d73	8	sauce	진간장		1.0	숟갈
+b7612ba56d73	9	sauce	맛술		1.0	숟갈
+b7612ba56d73	10	sauce	굴소스		0.33	숟갈
+b7612ba56d73	11	sauce	물엿		0.67	숟갈
+2c779b62d992	1	ingredient	소면		1.0	인분
+2c779b62d992	2	ingredient	중간 멸치		20.0	그람
+2c779b62d992	3	ingredient	양파		0.25	개
+2c779b62d992	4	ingredient	당근			조금
+2c779b62d992	5	ingredient	대파		0.5	대
+2c779b62d992	6	ingredient	냉동 유부		2.0	개
+2c779b62d992	7	ingredient	김가루			조금
+2c779b62d992	8	sauce	참치액		2.0	숟갈
+2c779b62d992	9	sauce	국간장		0.5	숟갈
+2c779b62d992	10	sauce	싱거우면 소금			살짝
+3399b2463651	1	ingredient	묵은지		1.0	쪽
+3399b2463651	2	ingredient	육수멸치		20.0	그람
+3399b2463651	3	ingredient	대파		0.67	대
+3399b2463651	4	sauce	들기름		3.0	숟갈
+3399b2463651	5	sauce	참치액		1.5	숟갈
+3399b2463651	6	sauce	다진마늘		0.67	숟갈
+3399b2463651	7	sauce	설탕		0.33	숟갈
+80e3a799d2e3	1	ingredient	동태		1.0	마리
+80e3a799d2e3	2	ingredient	동태 알		200.0	그람
+80e3a799d2e3	3	ingredient	동태 곤이		200.0	그람
+80e3a799d2e3	4	ingredient	대파		1.0	대
+80e3a799d2e3	5	ingredient	청양고추		2.0	개
+80e3a799d2e3	6	sauce	고추가루		3.0	숟갈
+80e3a799d2e3	7	sauce	고추장		1.5	숟갈
+80e3a799d2e3	8	sauce	까나리액젓		2.0	숟갈
+80e3a799d2e3	9	sauce	다진마늘		1.0	숟갈
+80e3a799d2e3	10	sauce	꽃소금		0.33	숟갈
+80e3a799d2e3	11	sauce	참치액		2.0	숟갈
+b36c772653d3	1	ingredient	황태채		50.0	그람
+b36c772653d3	2	ingredient	대파		1.0	대
+b36c772653d3	3	ingredient	계란		2.0	개
+b36c772653d3	4	sauce	참치액		1.5	숟갈
+b36c772653d3	5	sauce	꽃소금		1.0	꼬집
+b36c772653d3	6	sauce	맛소금		1.0	꼬집
+b36c772653d3	7	sauce	다진마늘		0.5	숟갈
+eca823c834e3	1	ingredient	파스타면		100.0	그람
+eca823c834e3	2	ingredient	방울토마토		200.0	그람
+eca823c834e3	3	ingredient	슬라이스 마늘		50.0	그람
+eca823c834e3	4	sauce	올리브오일			반컵
+eca823c834e3	5	sauce	참치액		1.0	숟갈
+eca823c834e3	6	sauce	맛소금		1.0	꼬집
+402324d3ef31	1	ingredient	다진소고기		200.0	그람
+402324d3ef31	2	ingredient	청양고추		100.0	그람
+402324d3ef31	3	ingredient	대파		1.0	대 (흰부분)
+402324d3ef31	4	sauce	맛술		0.67	숟갈
+402324d3ef31	5	sauce	진간장		0.67	숟갈
+402324d3ef31	6	sauce	까나리액젓		0.67	숟갈
+402324d3ef31	7	sauce	굴소스		0.67	숟갈
+402324d3ef31	8	sauce	물엿		1.5	숟갈
+5b62e6e72ed9	1	ingredient	소고기 국거리		150.0	그람
+5b62e6e72ed9	2	ingredient	무		1.0	토막
+5b62e6e72ed9	3	ingredient	대파		1.0	대
+5b62e6e72ed9	4	sauce	국간장		1.0	숟갈
+5b62e6e72ed9	5	sauce	참치액		2.0	숟갈
+5b62e6e72ed9	6	sauce	다진마늘		1.0	숟갈

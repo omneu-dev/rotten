@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../services/food_data_service.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -112,6 +113,19 @@ class _AdminScreenState extends State<AdminScreen> {
 
             const SizedBox(height: 16),
 
+            // JSON 출력 버튼
+            ElevatedButton(
+              onPressed: _isLoading ? null : _exportFoodsToJson,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple[600],
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: const Text('고추장, oyster_sauce JSON 출력', style: TextStyle(fontSize: 16)),
+            ),
+
+            const SizedBox(height: 16),
+
             // 삭제 버튼
             ElevatedButton(
               onPressed: _isLoading ? null : _clearFoodData,
@@ -156,7 +170,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   ),
                   const SizedBox(height: 12),
                   const Text(
-                    '1. assets/seed/food_data_ko.json 파일을 수정\n'
+                    '1. assets/seed/food_data_ko_251215.json 파일을 수정\n'
                     '2. 새로운 음식 데이터 추가 또는 기존 데이터 수정\n'
                     '3. "음식 데이터 재업로드" 버튼 클릭 (권장)\n'
                     '4. "Firestore 데이터 확인"으로 결과 확인',
@@ -415,6 +429,103 @@ class _AdminScreenState extends State<AdminScreen> {
       setState(() {
         _isLoading = false;
         _statusMessage = '❌ 삭제 중 오류가 발생했습니다: $e';
+      });
+    }
+  }
+
+  // 고추장, oyster_sauce JSON 출력
+  Future<void> _exportFoodsToJson() async {
+    setState(() {
+      _isLoading = true;
+      _statusMessage = 'Firestore에서 데이터를 가져오는 중...';
+    });
+
+    try {
+      final foodDataService = FoodDataService();
+      
+      // '고추장'과 'oyster_sauce' 조회
+      final gochujangJson = await foodDataService.getFoodJsonByName('고추장');
+      final oysterSauceJson = await foodDataService.getFoodJsonById('oyster_sauce');
+
+      if (gochujangJson == null && oysterSauceJson == null) {
+        setState(() {
+          _isLoading = false;
+          _statusMessage = '❌ 데이터를 찾을 수 없습니다.';
+        });
+        return;
+      }
+
+      String jsonOutput = '';
+      if (gochujangJson != null) {
+        jsonOutput += '// 고추장\n$gochujangJson,\n\n';
+      }
+      if (oysterSauceJson != null) {
+        jsonOutput += '// 굴소스 (oyster_sauce)\n$oysterSauceJson,\n';
+      }
+
+      // 다이얼로그로 표시
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+        
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('JSON 형식'),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    '아래 내용을 food_data_ko_251215.json 파일의 배열 끝에 추가하세요:',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey[300]!),
+                    ),
+                    child: SelectableText(
+                      jsonOutput,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: jsonOutput));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('JSON이 클립보드에 복사되었습니다'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                child: const Text('복사'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('확인'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _statusMessage = '❌ JSON 출력 실패: $e';
       });
     }
   }

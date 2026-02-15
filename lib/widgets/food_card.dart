@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // 음식 데이터 모델
 class FoodItem {
+  final String id; // 고유 ID (UserLog.id)
   final String name;
   final String iconPath;
   final DateTime startDate;
@@ -18,6 +19,7 @@ class FoodItem {
   final String storageType; // '냉장' 또는 '냉동'
 
   FoodItem({
+    required this.id,
     required this.name,
     required this.iconPath,
     required this.startDate,
@@ -43,11 +45,17 @@ class FoodItem {
   // 카테고리 분류 (D-day 기반)
   String get category {
     if (storageType == '냉동') {
-      // 냉동 식품의 경우
-      if (dDay < 0) return '버려야 해요'; // 이미 지남
-      if (dDay <= 3) return '곧 먹어야 해요'; // 3일 이내
-      if (dDay <= 7) return '보관 중'; // 7일 이내
-      return '신선한 음식'; // 7일 초과
+      // 냉동 식품의 경우 (더 긴 보관 기간을 고려한 카테고리)
+      if (dDay < 0) {
+        // 권장 보관 기한이 지난 경우
+        return '버려야 해요';
+      }
+      if (dDay <= 30) {
+        // 권장 기한까지 30일 이내
+        return '먹어도 안전해요';
+      }
+      // 권장 기한까지 아직 여유가 많은 경우
+      return '지금 가장 신선할 때';
     } else {
       // 냉장 식품의 경우
       if (dDay < 0) return '버려야 해요'; // 이미 지남
@@ -61,28 +69,24 @@ class FoodItem {
   // 👉🏻 TODO: 냉동고 카드 색상 수정 필요
   Map<String, Color> get cardColors {
     if (storageType == '냉동') {
-      // 냉동 식품 색상 (차가운 느낌의 파란 계열)
       if (dDay < 0) {
         return {
-          'background': const Color(0xFF5D6CC7), // 진한 보라-파랑 (버려야 해요)
-          'text': const Color(0xFFE8E9F5),
+          // 버려야 해요
+          'background': const Color(0xFF494459),
+          'text': const Color(0xFFFFCD44),
         };
       }
-      if (dDay <= 3) {
+      if (dDay <= 30) {
         return {
-          'background': const Color(0xFF4A90BB), // 파란색 (곧 먹어야 해요)
-          'text': const Color(0xFFFFFFFF),
-        };
-      }
-      if (dDay <= 7) {
-        return {
-          'background': const Color(0xFF7CB9D8), // 연한 파랑 (보관 중)
-          'text': const Color(0xFF2C5F7A),
+          // 먹어도 안전해요
+          'background': const Color(0xFFAAF1EA),
+          'text': const Color(0xFF753873),
         };
       }
       return {
-        'background': const Color(0xFFB8D4E3), // 매우 연한 파랑 (신선한 음식)
-        'text': const Color(0xFF4A6B7C),
+        // 지금 가장 신선할 때
+        'background': const Color(0xFFE8E1E1),
+        'text': const Color(0xFF338EEF),
       };
     } else {
       // 냉장 식품 색상

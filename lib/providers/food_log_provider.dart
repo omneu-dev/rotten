@@ -78,6 +78,51 @@ class FoodLogProvider with ChangeNotifier {
         }
 
         print('Provider: 새 음식 로그 추가 완료 - ${userLog.foodName}');
+
+        // 알림 설정 (권장폐기일이 있는 경우만)
+        if (userLog.expiryDate != null) {
+          // 현재 카테고리 계산 (D-day 기반)
+          final now = DateTime.now();
+          final today = DateTime(now.year, now.month, now.day);
+          final expiry = DateTime(
+            userLog.expiryDate!.year,
+            userLog.expiryDate!.month,
+            userLog.expiryDate!.day,
+          );
+          final dDay = expiry.difference(today).inDays;
+
+          // 카테고리 판단 (냉장 기준)
+          String currentCategory;
+          if (dDay < 0) {
+            currentCategory = '버려야 해요';
+          } else if (dDay == 0) {
+            currentCategory = '오늘 먹어야 해요';
+          } else if (dDay <= 2) {
+            currentCategory = '곧 상해요, 빨리 드세요';
+          } else {
+            currentCategory = '지금 가장 신선할 때';
+          }
+
+          print('추가된 음식 카테고리: $currentCategory (D-day: $dDay)');
+
+          // 즉시 알림 대상 카테고리인 경우 (D-0, D-1, D-2)
+          if (currentCategory == '곧 상해요, 빨리 드세요' ||
+              currentCategory == '오늘 먹어야 해요') {
+            // 5초 후 즉시 알림만 발송 (예약 알림은 설정하지 않음)
+            _notificationService.showCategoryNotificationDelayed(
+              foodName: userLog.foodName,
+              category: currentCategory,
+            );
+            print('즉시 알림 발송 예약 (5초 후): ${userLog.foodName} - $currentCategory');
+          } else {
+            // 그 외 카테고리 (D-3 이상): 예약 알림 설정
+            await _notificationService.scheduleFoodNotifications(
+              foodName: userLog.foodName,
+              expiryDate: userLog.expiryDate!,
+            );
+          }
+        }
+
         notifyListeners();
         return true;
       }
@@ -96,10 +141,19 @@ class FoodLogProvider with ChangeNotifier {
     try {
       _setLoading(true);
 
+      // 삭제할 음식 정보 찾기 (알림 취소용)
+      final logs = storageType == '냉장' ? _refrigeratorLogs : _freezerLogs;
+      final logToDelete = logs.firstWhere((log) => log.id == logId);
+
       // Firestore에서 삭제
       bool success = await _foodDataService.deleteUserLog(logId);
 
       if (success) {
+        // 예약된 알림 취소
+        await _notificationService.cancelFoodNotifications(
+          logToDelete.foodName,
+        );
+
         // 로컬 상태 업데이트
         if (storageType == '냉장') {
           _refrigeratorLogs.removeWhere((log) => log.id == logId);
@@ -176,6 +230,58 @@ class FoodLogProvider with ChangeNotifier {
           print(
             'Provider: 권장폐기일 업데이트 완료 - ${updatedLog.foodName}: ${newExpiryDate.toString()}',
           );
+
+          // 냉장고 음식만 알림 로직 적용 (냉동고는 알림 미적용)
+          if (storageType == '냉장') {
+            // 기존 알림 취소
+            await _notificationService.cancelFoodNotifications(
+              updatedLog.foodName,
+            );
+
+            // 현재 카테고리 계산 (D-day 기반)
+            final now = DateTime.now();
+            final today = DateTime(now.year, now.month, now.day);
+            final expiry = DateTime(
+              newExpiryDate.year,
+              newExpiryDate.month,
+              newExpiryDate.day,
+            );
+            final dDay = expiry.difference(today).inDays;
+
+            // 카테고리 판단 (냉장 기준)
+            String currentCategory;
+            if (dDay < 0) {
+              currentCategory = '버려야 해요';
+            } else if (dDay == 0) {
+              currentCategory = '오늘 먹어야 해요';
+            } else if (dDay <= 2) {
+              currentCategory = '곧 상해요, 빨리 드세요';
+            } else {
+              currentCategory = '지금 가장 신선할 때';
+            }
+
+            print('현재 카테고리: $currentCategory (D-day: $dDay)');
+
+            // 즉시 알림 대상 카테고리인 경우
+            if (currentCategory == '곧 상해요, 빨리 드세요' ||
+                currentCategory == '오늘 먹어야 해요') {
+              // 5초 후 즉시 알림만 발송 (예약 알림은 설정하지 않음)
+              _notificationService.showCategoryNotificationDelayed(
+                foodName: updatedLog.foodName,
+                category: currentCategory,
+              );
+              print(
+                '즉시 알림 발송 예약 (5초 후): ${updatedLog.foodName} - $currentCategory',
+              );
+            } else {
+              // 그 외 카테고리: 예약 알림 설정
+              await _notificationService.scheduleFoodNotifications(
+                foodName: updatedLog.foodName,
+                expiryDate: newExpiryDate,
+              );
+            }
+          }
+
           notifyListeners();
           return true;
         }
@@ -301,19 +407,8 @@ class FoodLogProvider with ChangeNotifier {
     UserLog userLog,
     String oldCategory,
   ) async {
-    try {
-      // 특정 카테고리 진입 알림
-      if (userLog.category == '곧 상해요, 빨리 드세요' ||
-          userLog.category == '오늘 먹어야 해요') {
-        await _notificationService.scheduleCategoryEntryNotification(userLog);
-      }
-
-      // 버려야 해요 카테고리 진입 시 3일 후 알림
-      if (userLog.category == '버려야 해요' && oldCategory != '버려야 해요') {
-        await _notificationService.scheduleTrashExpiredNotification(userLog);
-      }
-    } catch (e) {
-      print('알림 스케줄링 실패: $e');
-    }
+    // 알림 기능 비활성화 (테스트 알림만 사용)
+    // TODO: 추후 알림 기능 재구현 시 활성화
+    print('알림 기능 현재 비활성화됨');
   }
 }

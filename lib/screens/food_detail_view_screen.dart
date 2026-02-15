@@ -3,7 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../models/user_log.dart';
 import '../providers/food_log_provider.dart';
+import '../services/food_data_service.dart';
 import 'emoji_selection_screen.dart';
+
+//유저가 등록한 음식의 상세 페이지
 
 class FoodDetailViewScreen extends StatefulWidget {
   final UserLog userLog;
@@ -24,12 +27,20 @@ class FoodDetailViewScreen extends StatefulWidget {
 }
 
 class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
+  final FoodDataService _foodDataService = FoodDataService();
+
   DateTime _recommendedDisposalDate = DateTime.now().add(
     const Duration(days: 7),
   );
 
   String _selectedEmojiPath = '';
   bool _isEmojiSelectionMode = false; // 이모지 선택 모드 상태
+
+  // 보관 TIP 및 권장 폐기일 툴팁용
+  String? _aiStorageTips;
+  bool _isStorageTipInfoVisible = false;
+  bool _isExpiryTipInfoVisible = false;
+  bool _isAiExpiryGenerated = false; // 권장 폐기일이 AI로 생성된 값인지 여부
 
   // 변경사항 추적을 위한 변수들
   late DateTime _originalExpiryDate;
@@ -46,8 +57,8 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
     '디저트',
     '베이커리',
     '커피 · 술 · 음료',
-    '소스 · 양념',
-    '조리된 음식',
+    '국·반찬·메인요리',
+    '조미료·양념',
     '기타',
   ];
 
@@ -69,6 +80,8 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
     _originalExpiryDate = _recommendedDisposalDate;
     _originalEmojiPath = _selectedEmojiPath;
 
+    _loadAiStorageTips();
+
     // 디버깅을 위해 UserLog 정보 출력
     print('=== Food Detail View Debug ===');
     print('Food Name: ${widget.userLog.foodName}');
@@ -77,6 +90,37 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
     print('Condition: ${widget.userLog.condition}');
     print('Is Sealed: ${widget.userLog.isSealed}');
     print('=============================');
+  }
+
+  Future<void> _loadAiStorageTips() async {
+    try {
+      final food = await _foodDataService.getFoodById(widget.userLog.foodId);
+      if (!mounted) return;
+      setState(() {
+        _aiStorageTips = food?.aiStorageTips;
+
+        // 권장 폐기일이 AI로 생성된 값인지 계산 (Food를 가져올 수 있을 때만)
+        if (food != null && widget.userLog.expiryDate != null) {
+          final aiDate = _foodDataService.calculateExpiryDate(
+            food,
+            widget.userLog.storageType,
+            widget.userLog.condition,
+            widget.userLog.isSealed,
+            widget.userLog.startDate,
+          );
+
+          _isAiExpiryGenerated =
+              aiDate != null &&
+              aiDate.year == widget.userLog.expiryDate!.year &&
+              aiDate.month == widget.userLog.expiryDate!.month &&
+              aiDate.day == widget.userLog.expiryDate!.day;
+        } else {
+          _isAiExpiryGenerated = false;
+        }
+      });
+    } catch (e) {
+      print('aiStorageTips 로드 실패: $e');
+    }
   }
 
   @override
@@ -607,105 +651,205 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
   }
 
   Widget _buildRecommendedDisposalSection() {
+    final bool isAiGenerated = _isAiExpiryGenerated;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          '권장 폐기일',
-          style: TextStyle(
-            fontFamily: 'Pretendard',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF676C74),
-            letterSpacing: -0.3,
-            height: 22 / 14,
-          ),
-        ),
-        const SizedBox(height: 12),
-        GestureDetector(
-          onTap: _showDatePicker,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
+        Row(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // 이전 날짜 버튼
-                GestureDetector(
-                  onTap: () => setState(
-                    () => _recommendedDisposalDate = _recommendedDisposalDate
-                        .subtract(const Duration(days: 1)),
+                const Text(
+                  '권장 폐기일',
+                  style: TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF676C74),
+                    letterSpacing: -0.3,
+                    height: 22 / 14,
                   ),
-                  child: Container(
-                    width: 50,
-                    height: 40,
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFF353948),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
+                ),
+                if (isAiGenerated) ...[
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isExpiryTipInfoVisible = !_isExpiryTipInfoVisible;
+                      });
+                    },
+                    child: const Icon(
+                      Icons.info_outline,
+                      size: 14,
+                      color: Color(0xFFACB1BA),
                     ),
-                    child: Center(
-                      child: Transform.scale(
-                        scaleX: -1, // 좌우 반전으로 이전 방향
-                        child: SvgPicture.asset(
-                          'assets/images/chevron-back.svg',
-                          width: 24,
-                          height: 24,
-                          color: Colors.white,
+                  ),
+                ],
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            // 날짜 선택 컴포넌트 (수정 가능)
+            GestureDetector(
+              onTap: _showDatePicker,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 18,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    // 이전 날짜 버튼
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        _recommendedDisposalDate = _recommendedDisposalDate
+                            .subtract(const Duration(days: 1));
+                        // 수동 수정 시 AI 플래그/툴팁 해제
+                        _isAiExpiryGenerated = false;
+                        _isExpiryTipInfoVisible = false;
+                      }),
+                      child: Container(
+                        width: 50,
+                        height: 40,
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFF353948),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: Center(
+                          child: Transform.scale(
+                            scaleX: -1,
+                            child: SvgPicture.asset(
+                              'assets/images/chevron-back.svg',
+                              width: 24,
+                              height: 24,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
 
-                // 날짜 표시
-                Expanded(
-                  child: Text(
-                    '${_recommendedDisposalDate.year}.${_recommendedDisposalDate.month.toString().padLeft(2, '0')}.${_recommendedDisposalDate.day.toString().padLeft(2, '0')} ${_getDayOfWeek(_recommendedDisposalDate)}',
-                    style: const TextStyle(
-                      fontFamily: 'Pretendard',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF363A48),
-                      letterSpacing: -0.4,
-                      height: 24 / 16,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-
-                // 다음 날짜 버튼
-                GestureDetector(
-                  onTap: () => setState(
-                    () => _recommendedDisposalDate = _recommendedDisposalDate
-                        .add(const Duration(days: 1)),
-                  ),
-                  child: Container(
-                    width: 50,
-                    height: 40,
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFF353948),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                    // 날짜 표시
+                    Expanded(
+                      child: Text(
+                        '${_recommendedDisposalDate.year}.${_recommendedDisposalDate.month.toString().padLeft(2, '0')}.${_recommendedDisposalDate.day.toString().padLeft(2, '0')} ${_getDayOfWeek(_recommendedDisposalDate)}',
+                        style: const TextStyle(
+                          fontFamily: 'Pretendard',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF363A48),
+                          letterSpacing: -0.4,
+                          height: 24 / 16,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/images/chevron-back.svg',
-                        width: 24,
-                        height: 24,
-                        color: Colors.white,
+
+                    // 다음 날짜 버튼
+                    GestureDetector(
+                      onTap: () => setState(() {
+                        _recommendedDisposalDate = _recommendedDisposalDate.add(
+                          const Duration(days: 1),
+                        );
+                        // 수동 수정 시 AI 플래그/툴팁 해제
+                        _isAiExpiryGenerated = false;
+                        _isExpiryTipInfoVisible = false;
+                      }),
+                      child: Container(
+                        width: 50,
+                        height: 40,
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFF353948),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/images/chevron-back.svg',
+                            width: 24,
+                            height: 24,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+
+            // 권장 폐기일 안내 말풍선 (AI로 생성된 경우에만 노출)
+            if (isAiGenerated && _isExpiryTipInfoVisible)
+              Positioned(
+                left: 0,
+                top: 8,
+                child: Container(
+                  width: 230,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.06),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          'GPT로 생성된 날짜입니다.\nAI는 실수할 수 있습니다.',
+                          style: TextStyle(
+                            fontFamily: 'Pretendard',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF676C74),
+                            letterSpacing: -0.3,
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          setState(() {
+                            _isExpiryTipInfoVisible = false;
+                          });
+                        },
+                        child: const Icon(
+                          Icons.close,
+                          size: 14,
+                          color: Color(0xFFACB1BA),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
         ),
       ],
     );
@@ -744,58 +888,107 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return Dialog(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
-            '음식을 버리시겠습니까?',
-            style: TextStyle(
-              fontFamily: 'Pretendard',
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF363A48),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 제목
+                const Text(
+                  '음식을 버리시겠습니까?',
+                  style: TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF363A48),
+                    letterSpacing: -0.4,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // 세부 내용
+                Text(
+                  '${widget.userLog.foodName}을(를) 버리시겠습니까?\n이 작업은 되돌릴 수 없습니다.',
+                  style: const TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF676C74),
+                    letterSpacing: -0.3,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // 버튼 영역
+                Row(
+                  children: [
+                    // 취소 버튼
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => Navigator.of(context).pop(),
+                        child: Container(
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEAECF0),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '취소',
+                              style: TextStyle(
+                                fontFamily: 'Pretendard',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF676C74),
+                                letterSpacing: -0.4,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    // 버리기 버튼
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          _deleteFood();
+                        },
+                        child: Container(
+                          height: 48,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFD04466),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '버리기',
+                              style: TextStyle(
+                                fontFamily: 'Pretendard',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                letterSpacing: -0.4,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          content: Text(
-            '${widget.userLog.foodName}을(를) 버리시겠습니까?\n이 작업은 되돌릴 수 없습니다.',
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF676C74),
-              height: 20 / 14,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text(
-                '취소',
-                style: TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF676C74),
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _deleteFood();
-              },
-              child: const Text(
-                '버리기',
-                style: TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFFD04466),
-                ),
-              ),
-            ),
-          ],
         );
       },
     );
@@ -860,15 +1053,6 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
   bool _isCategorySelected(String newCategory) {
     final oldCategory = widget.userLog.category;
 
-    // 디버깅을 위해 콘솔에 출력
-    print('UserLog category: "$oldCategory", checking against: "$newCategory"');
-    print(
-      'Category length: ${oldCategory.length}, newCategory length: ${newCategory.length}',
-    );
-    print(
-      'Category bytes: ${oldCategory.codeUnits}, newCategory bytes: ${newCategory.codeUnits}',
-    );
-
     // 기존 카테고리와 새로운 카테고리 매핑
     switch (oldCategory) {
       case '과일':
@@ -912,7 +1096,8 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
       case '양념':
       case '소스 · 양념':
       case '소스·양념': // 중간점 없는 버전도 추가
-        return newCategory == '소스 · 양념';
+      case '조미료·양념': // 새로운 카테고리명도 지원
+        return newCategory == '조미료·양념';
       case '조리된 음식':
         return newCategory == '조리된 음식';
       case '샌드위치':
@@ -922,9 +1107,7 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
         return newCategory == '기타';
       default:
         // 정확히 일치하는 경우
-        final isExactMatch = newCategory == oldCategory;
-        print('Exact match: $isExactMatch');
-        return isExactMatch;
+        return newCategory == oldCategory;
     }
   }
 
@@ -949,21 +1132,34 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
   // 권장 폐기일을 위한 DatePicker 표시
   void _showDatePicker() async {
     final DateTime now = DateTime.now();
+
+    // DatePicker에서 사용할 날짜 범위 (오늘 ~ 5년 후)
+    final DateTime firstDate = DateTime(now.year - 5, now.month, now.day);
+    final DateTime lastDate = DateTime(now.year + 5, now.month, now.day);
+
+    // initialDate가 범위 밖에 있으면 범위 안으로 보정
+    DateTime initialDate = _recommendedDisposalDate;
+    if (initialDate.isBefore(firstDate)) {
+      initialDate = firstDate;
+    } else if (initialDate.isAfter(lastDate)) {
+      initialDate = lastDate;
+    }
+
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _recommendedDisposalDate.isBefore(now)
-          ? now
-          : _recommendedDisposalDate,
-      firstDate: now,
-      lastDate: now.add(const Duration(days: 365)), // 1년 후까지 선택 가능
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
-              primary: Color(0xFF814083), // 헤더 색상
+              primary: Color(0xFF353948), // 헤더 색상
               onPrimary: Colors.white, // 헤더 텍스트 색상
               onSurface: Color(0xFF363A48), // 날짜 텍스트 색상
+              surface: Colors.white, // 배경 색상
             ),
+            dialogBackgroundColor: Colors.white,
           ),
           child: child!,
         );
@@ -973,6 +1169,9 @@ class _FoodDetailViewScreenState extends State<FoodDetailViewScreen> {
     if (picked != null && picked != _recommendedDisposalDate) {
       setState(() {
         _recommendedDisposalDate = picked;
+        // 수동 수정 시 AI 플래그/툴팁 해제
+        _isAiExpiryGenerated = false;
+        _isExpiryTipInfoVisible = false;
       });
     }
   }
